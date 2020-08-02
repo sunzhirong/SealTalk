@@ -380,6 +380,14 @@ public class UserTask {
         return scIMService.setFriendAlias(requestBody);
     }
 
+    public LiveData<Result<Boolean>> addBlack(int uuid){
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("Data", uuid);
+        RequestBody requestBody = RetrofitUtil.createJsonRequest(paramsMap);
+        return scIMService.addBlack(requestBody);
+    }
+
+
 
 
 

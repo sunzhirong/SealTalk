@@ -32,6 +32,10 @@ public interface ScIMService {
     @Headers(NetConstant.JSON)
     LiveData<Result<Boolean>> setFriendAlias(@Body RequestBody body);
 
+    @POST(ScUrl.BLOCKS_ADD)
+    @Headers(NetConstant.JSON)
+    LiveData<Result<Boolean>> addBlack(@Body RequestBody body);
+
 
 
 }

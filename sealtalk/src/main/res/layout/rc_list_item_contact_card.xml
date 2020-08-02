@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -20,7 +19,11 @@
         android:textColor="#202129"
         android:textSize="16sp" />
 
-
+<LinearLayout
+    android:id="@+id/ll_container"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <com.daimajia.swipe.SwipeLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
@@ -70,6 +73,6 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </com.daimajia.swipe.SwipeLayout>
-
+</LinearLayout>
 
 </LinearLayout>

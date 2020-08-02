@@ -1,74 +1,13 @@
 package cn.rongcloud.im.niko.ui.activity;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import cn.rongcloud.im.R;
-import cn.rongcloud.im.common.Constant;
 import cn.rongcloud.im.common.IntentExtra;
-import cn.rongcloud.im.db.model.GroupEntity;
-import cn.rongcloud.im.im.IMManager;
-import cn.rongcloud.im.model.AddMemberResult;
-import cn.rongcloud.im.model.GroupMember;
-import cn.rongcloud.im.model.GroupNoticeResult;
-import cn.rongcloud.im.model.RegularClearStatusResult;
-import cn.rongcloud.im.model.Resource;
-import cn.rongcloud.im.model.ScreenCaptureResult;
-import cn.rongcloud.im.model.Status;
-import cn.rongcloud.im.model.qrcode.QrCodeDisplayType;
 import cn.rongcloud.im.niko.common.NetConstant;
-import cn.rongcloud.im.niko.event.AddFollowCompleteEvent;
 import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
-import cn.rongcloud.im.niko.widget.SettingItemView;
-import cn.rongcloud.im.ui.activity.GroupManagerActivity;
-import cn.rongcloud.im.ui.activity.GroupMemberListActivity;
-import cn.rongcloud.im.ui.activity.GroupNoticeActivity;
-import cn.rongcloud.im.ui.activity.GroupUserInfoActivity;
-import cn.rongcloud.im.ui.activity.MainActivity;
-import cn.rongcloud.im.ui.activity.QrCodeDisplayActivity;
-import cn.rongcloud.im.ui.activity.SearchHistoryMessageActivity;
-import cn.rongcloud.im.ui.activity.SelectFriendExcludeGroupActivity;
-import cn.rongcloud.im.ui.activity.SelectGroupMemberActivity;
-import cn.rongcloud.im.ui.activity.UserDetailActivity;
-import cn.rongcloud.im.ui.adapter.GridGroupMemberAdapter;
-import cn.rongcloud.im.ui.dialog.CommonDialog;
-import cn.rongcloud.im.ui.dialog.GroupNoticeDialog;
-import cn.rongcloud.im.ui.dialog.LoadingDialog;
-import cn.rongcloud.im.ui.dialog.SelectCleanTimeDialog;
-import cn.rongcloud.im.ui.dialog.SelectPictureBottomDialog;
-import cn.rongcloud.im.ui.dialog.SimpleInputDialog;
-import cn.rongcloud.im.ui.view.SealTitleBar;
-import cn.rongcloud.im.ui.view.UserInfoItemView;
-import cn.rongcloud.im.ui.widget.WrapHeightGridView;
-import cn.rongcloud.im.utils.CheckPermissionUtils;
-import cn.rongcloud.im.utils.ImageLoaderUtils;
-import cn.rongcloud.im.utils.ToastUtils;
-import cn.rongcloud.im.utils.log.SLog;
-import cn.rongcloud.im.viewmodel.GroupDetailViewModel;
-import io.rong.eventbus.EventBus;
-import io.rong.imkit.emoticon.AndroidEmoji;
-import io.rong.imkit.userInfoCache.RongUserInfoManager;
-import io.rong.imkit.utilities.PromptPopupDialog;
 import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Group;
 
 public class GroupSettingActivity extends BaseActivity{
     private UserInfoViewModel mUserInfoViewModel;
@@ -103,7 +42,7 @@ public class GroupSettingActivity extends BaseActivity{
 
             }
         });
-        mUserInfoViewModel.groupChatInfo(groupId);
+        mUserInfoViewModel.setAlias(groupId);
     }
 
 

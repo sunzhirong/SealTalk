@@ -36,6 +36,7 @@ public class ScUrl {
 
     //单聊设置
     public static final String SET_FRIEND_ALIAS = "/api/ScUser/FriendAlias";
+    public static final String BLOCKS_ADD = "/api/ScUser/BlocksAdd";
 
 
 

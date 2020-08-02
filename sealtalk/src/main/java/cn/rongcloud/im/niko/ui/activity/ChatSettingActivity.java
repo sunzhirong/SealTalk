@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.common.IntentExtra;
+import cn.rongcloud.im.niko.common.NetConstant;
+import cn.rongcloud.im.niko.utils.ToastUtils;
+import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
 import cn.rongcloud.im.niko.widget.SettingItemView;
 import cn.rongcloud.im.niko.widget.dialog.CommonDialog;
 
@@ -25,6 +29,7 @@ public class ChatSettingActivity extends BaseActivity {
     SettingItemView mSivReport;
     private String targetId;
     private CommonDialog mAddBlackDialog;
+    private UserInfoViewModel mUserInfoViewModel;
 
     @Override
     protected int getLayoutId() {
@@ -39,6 +44,19 @@ public class ChatSettingActivity extends BaseActivity {
             return;
         }
         targetId = intent.getStringExtra(IntentExtra.STR_TARGET_ID);
+        initViewModel();
+    }
+
+    private void initViewModel() {
+        mUserInfoViewModel = ViewModelProviders.of(this).get(UserInfoViewModel.class);
+
+
+        mUserInfoViewModel.getAddBlackesult().observe(this,resource -> {
+            if (resource.RsCode == NetConstant.REQUEST_SUCCESS_CODE) {
+                ToastUtils.showToast("设置成功");
+//                finish();
+            }
+        });
     }
 
 
@@ -68,6 +86,7 @@ public class ChatSettingActivity extends BaseActivity {
                     .setDialogButtonClickListener(new CommonDialog.OnDialogButtonClickListener() {
                         @Override
                         public void onPositiveClick(View v, Bundle bundle) {
+                            mUserInfoViewModel.addBlack(Integer.parseInt(targetId));
                         }
 
                         @Override

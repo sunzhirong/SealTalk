@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
+
 import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.niko.common.NetConstant;
@@ -68,6 +70,7 @@ public class MembersAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.letter = (TextView) convertView.findViewById(R.id.letter);
             viewHolder.delete = (TextView) convertView.findViewById(R.id.tv_delete);
             viewHolder.llContainer = (LinearLayout) convertView.findViewById(R.id.ll_container);
+            viewHolder.swipelayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -97,8 +100,11 @@ public class MembersAdapter extends BaseAdapter implements SectionIndexer {
 //                viewHolder.portrait.setAvatar(userInfo.getPortraitUri());
         }
 
-        viewHolder.llContainer.setOnClickListener(v->{
-            EventBus.getDefault().post(new ContactsItemClickEvent(position));
+        viewHolder.swipelayout.setClickToClose(true);
+        viewHolder.swipelayout.setOnClickListener(v->{
+            if (viewHolder.swipelayout.getOpenStatus() == SwipeLayout.Status.Close) {
+                EventBus.getDefault().post(new ContactsItemClickEvent(position));
+            }
         });
         viewHolder.delete.setOnClickListener(v -> {
             if(mOnDeleteClickListener!=null){
@@ -149,6 +155,7 @@ public class MembersAdapter extends BaseAdapter implements SectionIndexer {
         TextView letter;
         TextView delete;
         LinearLayout llContainer;
+        SwipeLayout swipelayout;
     }
 
     public static class MemberInfo {

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -13,15 +12,10 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.common.IntentExtra;
-import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.niko.common.NetConstant;
-import cn.rongcloud.im.niko.event.RefreshProfileEvent;
-import cn.rongcloud.im.niko.model.Status;
 import cn.rongcloud.im.niko.utils.ToastUtils;
 import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
 import cn.rongcloud.im.niko.widget.TitleBar;
-import cn.rongcloud.im.niko.widget.dialog.CommonDialog;
-import io.rong.eventbus.EventBus;
 
 public class SetAliasActivity extends BaseActivity {
     @BindView(R.id.title_bar)
@@ -64,8 +58,9 @@ public class SetAliasActivity extends BaseActivity {
 
     private void initEt() {
         mTvSubmit = mTitleBar.getTitleBarTvRight();
+        mTvSubmit.setEnabled(true);
         mTvSubmit.setOnClickListener(v -> {
-            mUserInfoViewModel.groupChatInfo(Integer.parseInt(mTargetId),mEtNickname.getText().toString().trim());
+            mUserInfoViewModel.setAlias(Integer.parseInt(mTargetId),mEtNickname.getText().toString().trim());
         });
         mEtNickname.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,7 +77,6 @@ public class SetAliasActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 String content = s.toString().trim();
                 mTvLength.setText(String.valueOf(10 - content.length()));
-                mTvSubmit.setEnabled(!TextUtils.isEmpty(content));
             }
         });
     }
