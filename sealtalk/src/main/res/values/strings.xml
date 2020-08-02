@@ -20,18 +20,12 @@
     <string name="seal_login_toast_code_is_null">验证码为空</string>
     <string name="seal_login_toast_password_is_null">密码不能为空</string>
     <string name="seal_login_toast_password_cannot_contain_spaces">密码不能包含空格</string>
-    <string name="seal_login_toast_phone_or_psw_error">手机或者密码错误</string>
     <string name="seal_login_toast_success">"登录成功"</string>
     <string name="seal_login_toast_not_send_code">未向服务端获取验证码</string>
     <string name="seal_login_toast_passwords_invalid">密码必须为6-16位字符，区分大小写</string>
     <string name="seal_login_toast_new_password_not_null">新密码不能为空</string>
     <string name="seal_login_toast_confirm_password_not_null">确认密码不能为空</string>
     <string name="seal_login_toast_passwords_do_not_match">填写的确认密码与新密码不一致</string>
-    <string name="login_error_send_message_frequency">短信发送频率超限</string>
-    <string name="login_error_captcha_overdue">验证码过期,请重新请求</string>
-    <string name="login_verification_code_error">验证码错误</string>
-    <string name="seal_login_kick_by_other">您的账号在别的设备上登录，您被迫下线!</string>
-    <string name="seal_login_connect_time_out">连接超时，请重新登录</string>
     <string name="common_chat_room">聊天室</string>
     <string name="discovery_chat_room_one">聊天室 I</string>
     <string name="discovery_chat_room_two">聊天室 II</string>
@@ -54,8 +48,6 @@
     <string name="seal_search">搜索</string>
     <string name="beijing">北京</string>
 
-    <string name="common_confirm">确认</string>
-    <string name="common_cancel">取消</string>
     <string name="common_done">完成</string>
     <string name="common_save">保存</string>
     <string name="common_publish">发布</string>
@@ -69,18 +61,8 @@
 
     <string name="common_member_count" formatted="true">%d 人</string>
 
-    <string name="common_network_unavailable">当前网络不可用</string>
     <string name="common_network_check">请检查网络设置</string>
 
-    <!--Main-->
-    <string-array name="tab_names">
-        <item>会话</item>
-        <item>通讯录</item>
-        <item>发现</item>
-        <item>我</item>
-    </string-array>
-
-    <string name="common_network_error_and_retry_after">网络问题请稍后重试</string>
 
     <string name="seal_evaluate_evaluation">评价</string>
     <string name="seal_evaluate_submit_evaluation">提交评价</string>
@@ -262,9 +244,6 @@
     <string name="seal_update_name_save_update">确认</string>
     <string name="seal_update_name_toast_nick_name_can_not_empty">昵称不能为空</string>
     <string name="seal_update_name_toast_nick_name_change_success">昵称更改成功</string>
-    <string name="seal_dialog_select_picture_take_picture">拍照</string>
-    <string name="seal_dialog_select_picture_album">从本地导入</string>
-    <string name="seal_dialog_select_picture_cancel">取消</string>
 
     <string name="seal_ac_search_friend">联系人</string>
     <string name="seal_ac_search_group">群组</string>
@@ -284,8 +263,6 @@
     <string name="seal_update_password_toast_password_not_equal">填写的确认密码与新密码不一致</string>
     <string name="seal_update_password_toast_password_old_equal_new">新旧密码一致</string>
 
-    <string name="seal_set_account_dialog_toast_clear_cache_clear_success">清除成功</string>
-    <string name="seal_set_account_dialog_clear_cache_message">是否清除缓存?</string>
     <string name="seal_privacy_blacklist_is_empty">黑名单为空</string>
     <string name="seal_privacy_blacklist">黑名单</string>
     <string name="seal_privacy_search_phone">允许通过手机号搜索到我</string>
@@ -413,7 +390,6 @@
     <string name="profile_group_notice_tips">发布后将以系统消息发送群聊，全员成员可见</string>
     <string name="profile_group_notice_update_time_format" formatted="true">发布时间：%s</string>
     <string name="profile_group_notice_clear_confirm">确定清空群公告？</string>
-    <string name="profile_group_has_no_notice">暂无群公告</string>
     <string name="profile_group_notice_not_changed">群公告没有修改</string>
     <string name="seal_group_manager_select_managements_dialog_content"><![CDATA[确定将 <font color="#0195ff">%1$s</font> 设置为管理员]]></string>
     <string name="seal_group_manager_confirm">确定</string>
@@ -432,8 +408,6 @@
     <string name="seal_loading_dialog_logining">登录中</string>
     <string name="seal_login_toast_send_code_success">发送成功</string>
     <string name="seal_login_toast_send_code_failed">发送验证码失败，请稍后再试</string>
-    <string name="login_register_phone_already_existed">手机号已经注册</string>
-    <string name="seal_login_toast_no_register">当前手机号还没进行注册</string>
     <string name="seal_login_register_registering">正在注册...</string>
     <string name="seal_login_register_toast_register_success">注册成功</string>
     <string name="seal_login_reset_password_toast_reset_password_success">重置密码成功</string>
@@ -501,10 +475,6 @@
     <string name="seal_group_manager_copy_tip_content">生成的新群仅支持复制群成员信息，现有的所有设置无法复制</string>
     <string name="seal_group_manager_copy_btn_content">确认复制</string>
     <string name="seal_group_manager_copy_tips">是否复制新群</string>
-    <string name="seal_group_manager_copy_in_protect">该群处于保护期，7日内无法复制</string>
-    <string name="seal_group_manager_copy_copied_7">一个群7天内只能被复制一次</string>
-    <string name="seal_group_manager_copy_not_exist">群不存在或被解散</string>
-    <string name="seal_group_manager_copy_fail">复制失败</string>
 
     <!--group_exited-->
     <string name="seal_group_manager_exited_null_tips">当前没有成员退出</string>
@@ -593,5 +563,111 @@
 
     <string name="seal_dialog_wait_tips">请稍后...</string>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="setting">设置</string>
+    <string name="setting_person_info">编辑个人资料</string>
+    <string name="setting_notification">消息通知</string>
+    <string name="setting_hooby_manage">兴趣圈子管理</string>
+    <string name="setting_contact_friend">手机通讯录好友</string>
+    <string name="setting_modify_pwd">修改密码</string>
+    <string name="setting_company_contact">官方联系</string>
+    <string name="setting_clear_cache">清理缓存</string>
+    <string name="setting_logout">退出登录</string>
+    <string name="edit_person_info">编辑个人资料</string>
+    <string name="notification_setting">消息通知设置</string>
+    <string name="vibrate">震动</string>
+    <string name="sound">声音</string>
+    <string name="show_noti_detail">显示消息通知详情</string>
+    <string name="no_disturb">消息免打扰</string>
+    <string name="copy_email">复制邮箱</string>
+    <string name="company_email">li18207135010@163.com</string>
+    <string name="copy_success">复制成功</string>
+    <string name="submit">确定</string>
+    <string name="setting_pwd">设置密码</string>
+    <string name="success">成功</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="old_pwd">旧密码</string>
+    <string name="common_cancel">取消</string>
+    <string name="common_confirm">确定</string>
+    <string name="common_clear">清理</string>
+
+
+    <string name="nickname1">群青</string>
+    <string name="nickname2">紫色</string>
+    <string name="nickname3">绿色</string>
+    <string name="nickname4">墨绿</string>
+    <string name="nickname5">粉色</string>
+    <string name="nickname6">黄色</string>
+    <string name="nickname7">橙色</string>
+
+
+
+
+    <string name="dialog_logout_title">退出登录</string>
+    <string name="dialog_logout_content">退出登录历史数据并不会被删除，下次登录并不会受到影响。</string>
+    <string name="seal_dialog_select_picture_take_picture">拍照</string>
+    <string name="seal_dialog_select_picture_album">从相册中选择</string>
+    <string name="seal_dialog_select_picture_cancel">取消</string>
+
+
+
+    <string name="seal_set_account_dialog_toast_clear_cache_clear_success">清除成功</string>
+    <string name="seal_set_account_dialog_clear_cache_message">清理临时数据，但不会影响三俩的正常使用</string>
+    <string name="seal_set_account_dialog_clear_cache_title">确定清理三俩的缓存？</string>
+
+
+
+
     <string name="seal_login_private_service_error">登录失败 Status :34005</string>
+    <string name="seal_login_toast_no_register">当前手机号还没进行注册</string>
+    <string name="seal_login_toast_phone_or_psw_error">手机或者密码错误</string>
+    <string name="login_error_send_message_frequency">短信发送频率超限</string>
+    <string name="login_error_captcha_overdue">验证码过期,请重新请求</string>
+    <string name="login_verification_code_error">验证码错误</string>
+    <string name="seal_login_kick_by_other">您的账号在别的设备上登录，您被迫下线!</string>
+    <string name="seal_login_connect_time_out">连接超时，请重新登录</string>
+    <string name="login_register_phone_already_existed">手机号已经注册</string>
+    <string name="profile_group_has_no_notice">暂无群公告</string>
+    <string name="common_network_error_and_retry_after">网络问题请稍后重试</string>
+    <string name="common_network_unavailable">当前网络不可用</string>
+    <string name="seal_group_manager_copy_in_protect">该群处于保护期，7日内无法复制</string>
+    <string name="seal_group_manager_copy_copied_7">一个群7天内只能被复制一次</string>
+    <string name="seal_group_manager_copy_not_exist">群不存在或被解散</string>
+    <string name="seal_group_manager_copy_fail">复制失败</string>
+    <string name="select_city">选择城市</string>
+    <string name="nickname">昵称</string>
+    <string name="head_img">头像</string>
+    <string name="gender">性别</string>
+    <string name="city">城市</string>
+    <string name="not_required">以下非必选项</string>
+    <string name="personal_profile">个人简介</string>
+    <string name="school">学校</string>
+    <string name="age">年龄</string>
+    <string name="modify_nickname">修改昵称</string>
+    <string name="setting_your_nickname">设置你的昵称</string>
+    <string name="setting_your_school">填写你的学校</string>
+    <string name="setting_your_email">填写你的邮箱</string>
+    <string name="man">男</string>
+    <string name="women">女</string>
+    <string name="delete">删除</string>
+    <!--Main-->
+    <string-array name="tab_names">
+        <item>我的</item>
+        <item>三俩</item>
+        <item>联系</item>
+        <item>个人</item>
+    </string-array>
 </resources>

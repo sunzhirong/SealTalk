@@ -22,7 +22,7 @@
         android:textSize="30.0dip"
         android:visibility="gone" />
 
-    <cn.rongcloud.im.ui.widget.SideBar
+    <cn.rongcloud.im.niko.widget.SideBar
         android:id="@+id/sv_sidebar"
         android:layout_width="@dimen/seal_contact_fragment_bar_width"
         android:layout_height="match_parent"

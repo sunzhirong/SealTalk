@@ -20,6 +20,9 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.gyf.immersionbar.ImmersionBar;
+import com.gyf.immersionbar.OnKeyboardListener;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -47,6 +50,8 @@ import cn.rongcloud.im.model.ScreenCaptureData;
 import cn.rongcloud.im.model.ScreenCaptureResult;
 import cn.rongcloud.im.model.Status;
 import cn.rongcloud.im.model.TypingInfo;
+import cn.rongcloud.im.niko.ui.activity.ChatSettingActivity;
+import cn.rongcloud.im.niko.ui.activity.GroupSettingActivity;
 import cn.rongcloud.im.sp.UserConfigCache;
 import cn.rongcloud.im.ui.dialog.RencentPicturePopWindow;
 import cn.rongcloud.im.ui.fragment.ConversationFragmentEx;
@@ -132,6 +137,14 @@ public class ConversationActivity extends TitleBaseActivity {
         initView();
         initViewModel();
         EventBus.getDefault().register(this);
+        ImmersionBar
+                .with(this)
+                .fitsSystemWindows(true)
+                .keyboardEnable(true)
+                .statusBarColor(R.color.white)
+                .statusBarDarkFont(true)
+                .init();
+
 //        initScreenShotListener();
     }
 
@@ -265,10 +278,12 @@ public class ConversationActivity extends TitleBaseActivity {
                     } else {
                         titleResId = R.string.seal_conversation_title_defult;
                     }
-                    getTitleBar().setTitle(titleResId);
+//                    getTitleBar().setTitle(titleResId);
+                    getNikoTitleBar().setTitle(titleResId);
 
                 } else {
-                    getTitleBar().setTitle(title);
+//                    getTitleBar().setTitle(title);
+                    getNikoTitleBar().setTitle(title);
                 }
             }
         });
@@ -567,22 +582,41 @@ public class ConversationActivity extends TitleBaseActivity {
     private void initTitleBar(Conversation.ConversationType conversationType, String targetId) {
         // title 布局设置
         // 左边返回按钮
-        getTitleBar().setOnBtnLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (fragment != null && !fragment.onBackPressed()) {
-                    if (fragment.isLocationSharing()) {
-                        fragment.showQuitLocationSharingDialog(ConversationActivity.this);
-                        return;
-                    }
-                    hintKbTwo();
-                }
-                finish();
-            }
-        });
+//        getTitleBar().setOnBtnLeftClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (fragment != null && !fragment.onBackPressed()) {
+//                    if (fragment.isLocationSharing()) {
+//                        fragment.showQuitLocationSharingDialog(ConversationActivity.this);
+//                        return;
+//                    }
+//                    hintKbTwo();
+//                }
+//                finish();
+//            }
+//        });
 
 
-        getTitleBar().getBtnRight().setOnClickListener(new View.OnClickListener() {
+//        getTitleBar().getBtnRight().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toDetailActivity(conversationType, targetId);
+//            }
+//        });
+
+//        if (conversationType.equals(Conversation.ConversationType.GROUP)) {
+//            getTitleBar().getBtnRight().setImageDrawable(getResources().getDrawable(R.drawable.seal_detail_group));
+//        } else if (conversationType.equals(Conversation.ConversationType.PRIVATE)
+//                || conversationType.equals(Conversation.ConversationType.PUBLIC_SERVICE)
+//                || conversationType.equals(Conversation.ConversationType.APP_PUBLIC_SERVICE)
+//                || conversationType.equals(Conversation.ConversationType.DISCUSSION)) {
+//            getTitleBar().getBtnRight().setImageDrawable(getResources().getDrawable(R.drawable.seal_detail_single));
+//        } else {
+//            getTitleBar().getBtnRight().setVisibility(View.GONE);
+//        }
+
+
+        getNikoTitleBar().getTitleBarIvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toDetailActivity(conversationType, targetId);
@@ -595,9 +629,9 @@ public class ConversationActivity extends TitleBaseActivity {
                 || conversationType.equals(Conversation.ConversationType.PUBLIC_SERVICE)
                 || conversationType.equals(Conversation.ConversationType.APP_PUBLIC_SERVICE)
                 || conversationType.equals(Conversation.ConversationType.DISCUSSION)) {
-            getTitleBar().getBtnRight().setImageDrawable(getResources().getDrawable(R.drawable.seal_detail_single));
+//            getTitleBar().getBtnRight().setImageDrawable(getResources().getDrawable(R.drawable.seal_detail_single));
         } else {
-            getTitleBar().getBtnRight().setVisibility(View.GONE);
+            getNikoTitleBar().getTitleBarIvRight().setVisibility(View.GONE);
         }
     }
 
@@ -611,12 +645,14 @@ public class ConversationActivity extends TitleBaseActivity {
 
             RongIM.getInstance().startPublicServiceProfile(this, conversationType, targetId);
         } else if (conversationType == Conversation.ConversationType.PRIVATE) {
-            Intent intent = new Intent(this, PrivateChatSettingActivity.class);
+//            Intent intent = new Intent(this, PrivateChatSettingActivity.class);
+            Intent intent = new Intent(this, ChatSettingActivity.class);
             intent.putExtra(IntentExtra.STR_TARGET_ID, targetId);
             intent.putExtra(IntentExtra.SERIA_CONVERSATION_TYPE, Conversation.ConversationType.PRIVATE);
             startActivity(intent);
         } else if (conversationType == Conversation.ConversationType.GROUP) {
-            Intent intent = new Intent(this, GroupDetailActivity.class);
+//            Intent intent = new Intent(this, GroupDetailActivity.class);
+            Intent intent = new Intent(this, GroupSettingActivity.class);
             intent.putExtra(IntentExtra.STR_TARGET_ID, targetId);
             intent.putExtra(IntentExtra.SERIA_CONVERSATION_TYPE, Conversation.ConversationType.GROUP);
             startActivity(intent);

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <cn.rongcloud.im.ui.view.SealTitleBar
+        android:visibility="gone"
         android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <cn.rongcloud.im.niko.widget.TitleBar
+        app:show_right_iv="true"
+        android:id="@+id/niko_title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

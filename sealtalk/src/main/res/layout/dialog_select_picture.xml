@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/bottom_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -10,7 +10,7 @@
         android:id="@+id/btn_take_picture"
         android:layout_width="match_parent"
         android:layout_height="@dimen/seal_dialog_select_picture_btn_height"
-        android:background="@drawable/seal_dialog_select_picture_btn_selector"
+        android:background="@drawable/seal_dialog_top_select_picture_btn_selector"
         android:text="@string/seal_dialog_select_picture_take_picture"
         android:textColor="@color/seal_dialog_select_picture_btn_text"
         android:textSize="@dimen/seal_dialog_select_picture_btn_text_size"
@@ -18,9 +18,8 @@
         />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/seal_dialog_select_picture_divider" />
+        android:background="#EBEBEB"
+        style="@style/lineStyle" />
 
     <Button
         android:id="@+id/btn_album"
@@ -33,9 +32,9 @@
         style="?android:attr/borderlessButtonStyle"
         />
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/seal_dialog_select_picture_divider" />
+        android:background="#EBEBEB"
+
+        style="@style/lineStyle" />
 
     <Button
         android:id="@+id/btn_cancel"
@@ -43,7 +42,7 @@
         android:layout_height="@dimen/seal_dialog_select_picture_btn_height"
         android:background="@drawable/seal_dialog_select_picture_btn_selector"
         android:text="@string/seal_dialog_select_picture_cancel"
-        android:textColor="@color/seal_dialog_select_picture_btn_text"
+        android:textColor="@color/seal_dialog_select_picture_btn_cancel"
         android:textSize="@dimen/seal_dialog_select_picture_btn_text_size"
         style="?android:attr/borderlessButtonStyle"
         />

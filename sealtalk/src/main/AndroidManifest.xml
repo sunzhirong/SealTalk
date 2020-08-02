@@ -560,6 +560,32 @@
             <intent-filter>
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" /> </intent-filter>
         </service>
+
+
+
+        <activity android:name=".niko.ui.activity.MainActivity" />
+        <activity android:name=".niko.ui.activity.SettingActivity" />
+        <activity android:name=".niko.ui.activity.SettingPersonInfoActivity" />
+        <activity android:name=".niko.ui.activity.SettingNotificationActivity" />
+        <activity android:name=".niko.ui.activity.ContactCompanyActivity" />
+        <activity android:name=".niko.ui.activity.SettingPwdActivity" />
+        <activity android:name=".niko.ui.activity.ModifyPwdActivity" />
+        <activity android:name=".niko.ui.activity.SelectCityActivity1" />
+        <activity android:name=".niko.ui.activity.SelectCityActivity2" />
+        <activity android:name=".niko.ui.activity.SelectCityActivity3" />
+        <activity android:name=".niko.ui.activity.ModifyNicknameActivity" />
+        <activity android:name=".niko.ui.activity.PersonalProfileActivity" />
+        <activity android:name=".niko.VipActivity" />
+        <activity android:name=".niko.SelectNickNameColorActivity" />
+        <activity android:name=".niko.ui.activity.FriendsRequestListActivity" />
+        <activity android:name=".niko.ui.activity.SelectAtPersonActivity" />
+        <activity android:name=".niko.ui.activity.MyLikedActivity" />
+        <activity android:name=".niko.ui.activity.SelectGoupMemberActivity" />
+        <activity android:name=".niko.ui.activity.ChatSettingActivity" />
+        <activity android:name=".niko.ui.activity.ContactsActivity" />
+        <activity android:name=".niko.ui.activity.GroupSettingActivity" />
+
     </application>
+
 
 </manifest>

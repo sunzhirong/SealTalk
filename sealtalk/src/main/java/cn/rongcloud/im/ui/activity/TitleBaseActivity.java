@@ -10,18 +10,21 @@ import android.widget.ViewFlipper;
 import androidx.annotation.Nullable;
 
 import cn.rongcloud.im.R;
+import cn.rongcloud.im.niko.widget.TitleBar;
 import cn.rongcloud.im.ui.BaseActivity;
 import cn.rongcloud.im.ui.view.SealTitleBar;
 
 public abstract class TitleBaseActivity extends BaseActivity {
     private ViewFlipper contentContainer;
     private SealTitleBar titleBar;
+    private TitleBar nikoTitleBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_base);
         titleBar = findViewById(R.id.title_bar);
+        nikoTitleBar = findViewById(R.id.niko_title_bar);
         contentContainer = findViewById(R.id.layout_container);
         setTitleBarType(SealTitleBar.Type.NORMAL);
         getTitleBar().setOnBtnLeftClickListener(new View.OnClickListener() {
@@ -51,6 +54,10 @@ public abstract class TitleBaseActivity extends BaseActivity {
 
     public void setTitleBarType(SealTitleBar.Type type) {
         titleBar.setType(type);
+    }
+
+    public TitleBar getNikoTitleBar() {
+        return nikoTitleBar;
     }
 
     @Override

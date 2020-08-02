@@ -29,7 +29,6 @@
             app:sriv_left_top_corner_radius="3dip"
             app:sriv_right_bottom_corner_radius="3dip"
             app:sriv_right_top_corner_radius="3dip"
-            tools:background="@color/gray"
             />
 
         <TextView
@@ -61,8 +60,7 @@
 
     </RelativeLayout>
 
-
-    <cn.rongcloud.im.ui.view.SettingItemView
+<cn.rongcloud.im.niko.widget.SettingItemView
         android:id="@+id/siv_search_messages"
         android:layout_width="match_parent"
         android:layout_height="@dimen/seal_private_detail_item_height"

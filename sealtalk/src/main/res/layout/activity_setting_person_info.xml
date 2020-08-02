@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <cn.rongcloud.im.niko.widget.TitleBar
+        app:title="@string/edit_person_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <cn.rongcloud.im.niko.widget.SettingItemView
+        android:gravity="center_vertical"
+        android:id="@+id/siv_img"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:item_image_height="50dp"
+        app:item_image_width="50dp"
+        app:item_right_image="@drawable/img_item_setting_enter"
+        app:item_image="@drawable/img_setting_contact"
+        app:item_content="@string/head_img"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seal_setting_item_divider"
+        android:layout_marginLeft="@dimen/seal_setting_item_margin"
+        android:background="@color/seal_setting_item_divider"
+        />
+    <cn.rongcloud.im.niko.widget.SettingItemView
+        android:gravity="center_vertical"
+        android:id="@+id/siv_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:item_right_image="@drawable/img_item_setting_enter"
+        app:item_divider="true"
+        app:item_value="niko"
+        app:item_content="@string/nickname"/>
+
+    <cn.rongcloud.im.niko.widget.SettingItemView
+        android:gravity="center_vertical"
+        android:id="@+id/siv_gender"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:item_right_image="@drawable/img_item_setting_enter"
+        app:item_divider="true"
+        app:item_value="男"
+        app:item_content="@string/gender"/>
+
+    <cn.rongcloud.im.niko.widget.SettingItemView
+        android:gravity="center_vertical"
+        android:id="@+id/siv_city"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:item_right_image="@drawable/img_item_setting_enter"
+        app:item_divider="true"
+        app:item_value="广东深圳"
+        app:item_content="@string/city"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/dp_5"
+        android:textColor="@color/grayB"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:text="@string/not_required"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <cn.rongcloud.im.niko.widget.SettingItemView
+        android:gravity="center_vertical"
+        android:id="@+id/siv_own"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:item_right_image="@drawable/img_item_setting_enter"
+        app:item_divider="true"
+        app:item_value="世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界世界"
+        app:item_content="@string/personal_profile"/>
+
+    <cn.rongcloud.im.niko.widget.SettingItemView
+        android:gravity="center_vertical"
+        android:id="@+id/siv_school"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:item_right_image="@drawable/img_item_setting_enter"
+        app:item_divider="true"
+        app:item_value="深圳大学"
+        app:item_content="@string/school"/>
+
+    <cn.rongcloud.im.niko.widget.SettingItemView
+        android:gravity="center_vertical"
+        android:id="@+id/siv_age"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:item_right_image="@drawable/img_item_setting_enter"
+        app:item_divider="true"
+        app:item_value="24岁"
+        app:item_content="@string/age"/>
+
+
+
+</LinearLayout>

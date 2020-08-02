@@ -67,7 +67,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goToMain() {
-        startActivity(new Intent(this, MainActivity.class));
+//        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, cn.rongcloud.im.niko.ui.activity.MainActivity.class));
         if (intentUri != null) {
             goWithUri();
         } else {
