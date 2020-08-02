@@ -60,7 +60,8 @@
 
     </RelativeLayout>
 
-<cn.rongcloud.im.niko.widget.SettingItemView
+
+    <cn.rongcloud.im.ui.view.SettingItemView
         android:id="@+id/siv_search_messages"
         android:layout_width="match_parent"
         android:layout_height="@dimen/seal_private_detail_item_height"

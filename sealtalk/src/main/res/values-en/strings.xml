@@ -663,4 +663,8 @@
         <item>联系</item>
         <item>个人</item>
     </string-array>
+
+    <string name="dialog_add_black_title">确定将该用户拉黑吗？</string>
+    <string name="dialog_add_black_content">拉黑后该用户将无法与你的内容互动</string>
+    <string name="dialog_add_black">拉黑</string>
 </resources>

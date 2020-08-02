@@ -1,9 +1,11 @@
 package cn.rongcloud.im.niko.ui.adapter;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.niko.common.NetConstant;
 import cn.rongcloud.im.niko.db.model.ProfileHeadInfo;
+import cn.rongcloud.im.niko.event.ContactsItemClickEvent;
 import cn.rongcloud.im.niko.model.FriendInfo;
 import cn.rongcloud.im.niko.utils.glideutils.GlideImageLoaderUtil;
 
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import io.rong.eventbus.EventBus;
 import io.rong.imkit.widget.AsyncImageView;
 
 public class MembersAdapter extends BaseAdapter implements SectionIndexer {
@@ -63,13 +67,18 @@ public class MembersAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder.portrait = (AsyncImageView) convertView.findViewById(R.id.rc_user_portrait);
             viewHolder.letter = (TextView) convertView.findViewById(R.id.letter);
             viewHolder.delete = (TextView) convertView.findViewById(R.id.tv_delete);
+            viewHolder.llContainer = (LinearLayout) convertView.findViewById(R.id.ll_container);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         FriendInfo userInfo = mList.get(position).userInfo;
         if (userInfo != null) {
-            viewHolder.name.setText(userInfo.getName());
+            String name = userInfo.getName();
+            if(!TextUtils.isEmpty(userInfo.getAlias())){
+                name = userInfo.getAlias();
+            }
+            viewHolder.name.setText(name);
             viewHolder.name.setTextColor(ProfileUtils.getNameColor(userInfo.getNameColor()));
             GlideImageLoaderUtil.loadCircleImage(parent.getContext(),viewHolder.portrait, userInfo.getUserIcon());
 //                if (!TextUtils.isEmpty(userInfo.getExtra())) {
@@ -88,6 +97,9 @@ public class MembersAdapter extends BaseAdapter implements SectionIndexer {
 //                viewHolder.portrait.setAvatar(userInfo.getPortraitUri());
         }
 
+        viewHolder.llContainer.setOnClickListener(v->{
+            EventBus.getDefault().post(new ContactsItemClickEvent(position));
+        });
         viewHolder.delete.setOnClickListener(v -> {
             if(mOnDeleteClickListener!=null){
                 mOnDeleteClickListener.onDelete(position);
@@ -136,6 +148,7 @@ public class MembersAdapter extends BaseAdapter implements SectionIndexer {
         TextView name;
         TextView letter;
         TextView delete;
+        LinearLayout llContainer;
     }
 
     public static class MemberInfo {

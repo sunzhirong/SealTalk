@@ -27,12 +27,15 @@ public class ScUrl {
 
     public static final String HAS_SET_PASSWORD = "/api/ScUser/HasSetPassword";
 
-    public static final String USER_INFO_UPDATE = "api/ScUser/UserInfoUpdate";
 
 
     public static final String GET_IM_TOKEN = "/api/ScIM/GetImUserToken";
     public static final String CREATE_GROUP = "/api/ScIM/GroupChatStart";
     public static final String GROUP_CHAT_INFO = "/api/ScIM/GroupChatInfo";
+
+
+    //单聊设置
+    public static final String SET_FRIEND_ALIAS = "/api/ScUser/FriendAlias";
 
 
 

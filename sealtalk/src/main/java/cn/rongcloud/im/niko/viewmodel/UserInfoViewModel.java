@@ -43,6 +43,8 @@ public class UserInfoViewModel extends AndroidViewModel {
     private SingleSourceLiveData<Result<Integer>> createGroupResult =  new SingleSourceLiveData<>();
     private SingleSourceLiveData<Result<List<FriendInfo>>> getFriendListResult =  new SingleSourceLiveData<>();
     private SingleSourceLiveData<Result<GroupInfoBean>> getGroupInfoBeanResult =  new SingleSourceLiveData<>();
+    private SingleSourceLiveData<Result<Boolean>> getSetAliasResult =  new SingleSourceLiveData<>();
+
 
 
 
@@ -185,6 +187,14 @@ public class UserInfoViewModel extends AndroidViewModel {
         return getGroupInfoBeanResult;
     }
 
+
+    public void groupChatInfo(int uuid,String alias){
+        getSetAliasResult.setSource(userTask.setFriendAlias(uuid,alias));
+    }
+
+    public SingleSourceLiveData<Result<Boolean>> getSetAliasResult() {
+        return getSetAliasResult;
+    }
 
 
 

@@ -57,6 +57,9 @@ public class TitleBar extends RelativeLayout {
             if (array.hasValue(R.styleable.TitleBar_title)) {
                 mTitleBarTvTitle.setText(array.getString(R.styleable.TitleBar_title));
             }
+            if (array.hasValue(R.styleable.TitleBar_right_title)) {
+                mTitleBarTvRight.setText(array.getString(R.styleable.TitleBar_right_title));
+            }
             if (array.hasValue(R.styleable.TitleBar_show_right_tv)) {
                 boolean b = array.getBoolean(R.styleable.TitleBar_show_right_tv, false);
                 mTitleBarTvRight.setVisibility(b?VISIBLE:GONE);

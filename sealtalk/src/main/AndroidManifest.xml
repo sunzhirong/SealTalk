@@ -584,6 +584,7 @@
         <activity android:name=".niko.ui.activity.ChatSettingActivity" />
         <activity android:name=".niko.ui.activity.ContactsActivity" />
         <activity android:name=".niko.ui.activity.GroupSettingActivity" />
+        <activity android:name=".niko.ui.activity.SetAliasActivity" />
 
     </application>
 

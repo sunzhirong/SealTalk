@@ -28,5 +28,10 @@ public interface ScIMService {
     LiveData<Result<GroupInfoBean>> groupChatInfo(@Body RequestBody body);
 
 
+    @POST(ScUrl.SET_FRIEND_ALIAS)
+    @Headers(NetConstant.JSON)
+    LiveData<Result<Boolean>> setFriendAlias(@Body RequestBody body);
+
+
 
 }

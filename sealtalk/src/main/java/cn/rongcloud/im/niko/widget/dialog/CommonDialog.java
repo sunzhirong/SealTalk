@@ -33,6 +33,7 @@ public class CommonDialog extends DialogFragment {
         public int positiveText;
         public int negativeText;
         public int titleText;
+        public int positiveColor;
         private boolean isOnlyConfirm;
     }
 
@@ -127,6 +128,10 @@ public class CommonDialog extends DialogFragment {
             negative.setVisibility(View.GONE);
             btnSeparate.setVisibility(View.GONE);
             positive.setBackgroundResource(R.drawable.common_dialog_single_positive_seletor);
+        }
+
+        if(params.positiveColor>0){
+            positive.setText(params.positiveColor);
         }
 
         setCancelable(params.isCancelable);
@@ -249,6 +254,11 @@ public class CommonDialog extends DialogFragment {
         public Builder setButtonText(int positiveText, int negativeText) {
             params.positiveText = positiveText;
             params.negativeText = negativeText;
+            return this;
+        }
+
+        public Builder setPositiveColor(int color) {
+            params.positiveColor = color;
             return this;
         }
 

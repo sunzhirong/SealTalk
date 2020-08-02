@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.rongcloud.im.niko.widget.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:right_title="完成"
+        app:show_right_tv="true"
+        app:title="备注" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:maxLength="10"
+        android:id="@+id/et_nickname"
+        style="@style/etPwdStyle"
+        android:inputType="text"
+        android:hint="显示用户昵称"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_gravity="end"
+        android:id="@+id/tv_length"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/dp_12"
+        android:text="10"
+        android:textColor="#65666C"
+        style="@style/tv12RedStyle"/>
+
+
+</LinearLayout>

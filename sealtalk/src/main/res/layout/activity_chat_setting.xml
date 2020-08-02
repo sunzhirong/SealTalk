@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <cn.rongcloud.im.niko.widget.TitleBar
@@ -21,22 +22,27 @@
     
     <cn.rongcloud.im.niko.widget.SettingItemView
         android:gravity="center_vertical"
-        android:id="@+id/siv_nickname"
+        android:id="@+id/siv_alias"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:item_right_image="@drawable/img_item_setting_enter"
         app:item_content="设置备注名"/>
 
+
+
     <cn.rongcloud.im.niko.widget.SettingItemView
-        android:id="@+id/siv_no_disturb"
+        android:id="@+id/siv_set_top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:item_content="置顶聊天"
         app:item_switch="true" />
 
+    <View
+        style="@style/lineStyle"/>
+
     <cn.rongcloud.im.niko.widget.SettingItemView
         android:gravity="center_vertical"
-        android:id="@+id/siv_gender"
+        android:id="@+id/siv_black"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:item_right_image="@drawable/img_item_setting_enter"
@@ -44,7 +50,7 @@
 
     <cn.rongcloud.im.niko.widget.SettingItemView
         android:gravity="center_vertical"
-        android:id="@+id/siv_city"
+        android:id="@+id/siv_report"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:item_right_image="@drawable/img_item_setting_enter"

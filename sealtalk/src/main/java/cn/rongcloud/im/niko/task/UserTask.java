@@ -370,6 +370,15 @@ public class UserTask {
         return scIMService.groupChatInfo(requestBody);
     }
 
+    public LiveData<Result<Boolean>> setFriendAlias(int uuid,String alias){
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        HashMap<String, Object> dataMap = new HashMap<>();
+        dataMap.put("UID",uuid);
+        dataMap.put("Alias",alias);
+        paramsMap.put("Data", dataMap);
+        RequestBody requestBody = RetrofitUtil.createJsonRequest(paramsMap);
+        return scIMService.setFriendAlias(requestBody);
+    }
 
 
 

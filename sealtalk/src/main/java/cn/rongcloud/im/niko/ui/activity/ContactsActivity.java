@@ -20,6 +20,7 @@ import cn.rongcloud.im.R;
 import cn.rongcloud.im.niko.common.NetConstant;
 import cn.rongcloud.im.niko.db.model.ProfileHeadInfo;
 import cn.rongcloud.im.niko.event.AddFollowCompleteEvent;
+import cn.rongcloud.im.niko.event.ContactsItemClickEvent;
 import cn.rongcloud.im.niko.event.FollowEvent;
 import cn.rongcloud.im.niko.model.FollowRequestInfo;
 import cn.rongcloud.im.niko.model.FriendInfo;
@@ -38,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.eventbus.EventBus;
+import io.rong.imkit.RongIM;
 import io.rong.imkit.mention.SideBar;
 import io.rong.imkit.tools.CharacterParser;
 import io.rong.imkit.widget.AsyncImageView;
@@ -79,15 +81,12 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
         initViewModel();
 
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent();
-//                intent.putExtra("contact", mAdapter.getItem(position).userInfo);
-//                setResult(Activity.RESULT_OK, intent);
-//                finish();
-            }
-        });
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//        });
 
         //设置右侧触摸监听
         mSideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
@@ -118,6 +117,9 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
                     filterDataList.clear();
                     for (MembersAdapter.MemberInfo member : mAllMemberList) {
                         String name = member.userInfo.getName();
+                        if(!TextUtils.isEmpty(member.userInfo.getAlias())){
+                            name = member.userInfo.getAlias();
+                        }
                         if (name != null) {
                             if (name.contains(s) || CharacterParser.getInstance().getSelling(name).startsWith(s.toString())) {
                                 filterDataList.add(member);
@@ -145,20 +147,35 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
                 SLog.e("UserInfoViewModel", "刷新联系人");
                 mAllMemberList.clear();
                 List<FriendInfo> rsData = result.getRsData();
-//                mFollowRvAdapter.setDatas(rsData);
 
                 for (int i = 0; i < rsData.size(); i++) {
                     FriendInfo profileHeadInfo = rsData.get(i);
                     MembersAdapter.MemberInfo memberInfo = new MembersAdapter.MemberInfo(profileHeadInfo);
                     String sortString = "#";
+
                     //汉字转换成拼音
                     String pinyin = CharacterParser.getInstance().getSelling(profileHeadInfo.getName());
-
+                    if(!TextUtils.isEmpty(profileHeadInfo.getAlias())){
+                        pinyin = CharacterParser.getInstance().getSelling(profileHeadInfo.getAlias());
+                    }
                     if (pinyin != null) {
                         if (pinyin.length() > 0) {
                             sortString = pinyin.substring(0, 1).toUpperCase();
                         }
                     }
+
+//                    //汉字转换成拼音
+//                    String pinyin = CharacterParser.getInstance().getSelling(profileHeadInfo.getName());
+//                    if(!TextUtils.isEmpty(profileHeadInfo.getAlias())){
+//                        pinyin = profileHeadInfo.getAlias();
+//                    }
+//                    if (pinyin != null) {
+//                        if (pinyin.length() > 0) {
+//                            sortString = CharacterParser.getInstance().getSelling(pinyin.substring(0, 1)).toUpperCase();
+//                        }
+//                    }
+
+
                     // 正则表达式，判断首字母是否是英文字母
                     if (sortString.matches("[A-Z]")) {
                         memberInfo.setLetter(sortString.toUpperCase());
@@ -219,6 +236,17 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
         }
         refreshDot();
     }
+    public void onEventMainThread(ContactsItemClickEvent event) {
+        MembersAdapter.MemberInfo memberInfo = mAllMemberList.get(event.position);
+        FriendInfo userInfo = memberInfo.userInfo;
+        if (!TextUtils.isEmpty(userInfo.getAlias())) {
+            RongIM.getInstance().startPrivateChat(mContext, String.valueOf(userInfo.getUID()), userInfo.getAlias());
+        } else {
+            RongIM.getInstance().startPrivateChat(mContext, String.valueOf(userInfo.getUID()), userInfo.getName());
+
+        }
+    }
+
 
     private ListView mListView;
     private List<MembersAdapter.MemberInfo> mAllMemberList;
@@ -248,4 +276,7 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
         EventBus.getDefault().unregister(this);
 
     }
+
+
+
 }
