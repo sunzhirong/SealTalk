@@ -82,7 +82,7 @@ public class ModifyNicknameActivity extends BaseActivity {
                         break;
                 }
 //                finish();
-                mUserInfoViewModel.getProfile();
+                mUserInfoViewModel.getProfile(ProfileUtils.sProfileInfo.getId());
 
             }
         });

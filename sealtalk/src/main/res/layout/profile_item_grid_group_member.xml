@@ -7,8 +7,8 @@
 
         <cn.rongcloud.im.ui.widget.SelectableRoundedImageView
             android:id="@+id/profile_iv_grid_member_avatar"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
             android:scaleType="centerCrop"

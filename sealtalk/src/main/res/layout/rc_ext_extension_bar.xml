@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:background="@color/rc_common_phrases_bg_color"
+        android:background="@android:color/white"
         android:orientation="vertical">
 
         <TextView

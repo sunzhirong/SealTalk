@@ -58,6 +58,7 @@ public class VipActivity extends BaseActivity {
         mTvName.setTextColor(Color.parseColor("#"+profileInfo.getHead().getNameColor()));
         mTvName.setText(profileInfo.getHead().getName());
         GlideImageLoaderUtil.loadCircleImage(mContext,mIvAvatar, ProfileUtils.sProfileInfo.getHead().getUserIcon());
+//        GlideImageLoaderUtil.loadCircleImage(mContext,mIvAvatar, "_uu_2020-08-03_2196-9cdf5684-a13f-4014-b33e-54b0959d2b1d.jpeg");
         initViewModel();
     }
 

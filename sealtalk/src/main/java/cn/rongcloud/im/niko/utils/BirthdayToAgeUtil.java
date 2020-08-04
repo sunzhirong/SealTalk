@@ -90,6 +90,18 @@ public class BirthdayToAgeUtil {
 
     public final static String RIDE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     public final static String FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public final static String FORMAT_Y_M = "MM-dd";
+
+    public static String scFormatYearMonth(String dateString) {
+        try {
+            Date date = parseDate(dateString, RIDE_FORMAT);
+            SimpleDateFormat formatter = new SimpleDateFormat(FORMAT_Y_M);
+            return formatter.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
 
     public static String formartTimeRide(String dateString) {
         try {

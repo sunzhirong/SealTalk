@@ -72,4 +72,8 @@ public class ProfileUtils {
             return Color.parseColor("#0A0A0B");
         }
     }
+
+//    public static int getShowName(ProfileInfo info){
+//        if(info.getHead().getName())
+//    }
 }

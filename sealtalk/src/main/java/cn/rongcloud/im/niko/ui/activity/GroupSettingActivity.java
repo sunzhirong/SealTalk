@@ -1,18 +1,36 @@
 package cn.rongcloud.im.niko.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+
+import java.util.List;
 
 import androidx.lifecycle.ViewModelProviders;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.common.IntentExtra;
+import cn.rongcloud.im.model.GroupMember;
 import cn.rongcloud.im.niko.common.NetConstant;
+import cn.rongcloud.im.niko.db.model.ProfileHeadInfo;
+import cn.rongcloud.im.niko.model.GroupInfoBean;
+import cn.rongcloud.im.niko.ui.adapter.GroupMemberAdapter;
 import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
+import cn.rongcloud.im.niko.widget.SettingItemView;
+import cn.rongcloud.im.ui.adapter.GridGroupMemberAdapter;
+import cn.rongcloud.im.ui.view.UserInfoItemView;
+import cn.rongcloud.im.ui.widget.WrapHeightGridView;
 import io.rong.imlib.model.Conversation;
 
-public class GroupSettingActivity extends BaseActivity{
+public class GroupSettingActivity extends BaseActivity {
+    @BindView(R.id.profile_gv_group_member)
+    WrapHeightGridView mProfileGvGroupMember;
     private UserInfoViewModel mUserInfoViewModel;
     private Conversation.ConversationType conversationType;
     private String groupId;
+    private GroupMemberAdapter memberAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -32,18 +50,38 @@ public class GroupSettingActivity extends BaseActivity{
         if (groupId == null || conversationType == null) {
             return;
         }
+
+        memberAdapter = new GroupMemberAdapter(this, 9);
+        memberAdapter.setAllowAddMember(true);
+        mProfileGvGroupMember.setAdapter(memberAdapter);
+        memberAdapter.setOnItemClickedListener(new GroupMemberAdapter.OnItemClickedListener() {
+            @Override
+            public void onAddOrDeleteMemberClicked(boolean isAdd) {
+//                toMemberManage(isAdd);
+            }
+
+            @Override
+            public void onMemberClicked(ProfileHeadInfo groupMember) {
+//                showMemberInfo(groupMember);
+            }
+        });
+
         initViewModel();
     }
 
     private void initViewModel() {
         mUserInfoViewModel = ViewModelProviders.of(this).get(UserInfoViewModel.class);
-        mUserInfoViewModel.getGroupChatInfoResult().observe(this, result->{
-            if(result.RsCode== NetConstant.REQUEST_SUCCESS_CODE) {
-
+        mUserInfoViewModel.getGroupChatInfoResult().observe(this, result -> {
+            if (result.RsCode == NetConstant.REQUEST_SUCCESS_CODE) {
+                GroupInfoBean rsData = result.getRsData();
+                List<ProfileHeadInfo> userHeads = rsData.getUserHeads();
+                memberAdapter.updateListView(userHeads);
             }
         });
         mUserInfoViewModel.setAlias(groupId);
     }
+
+
 
 
 //    private final String TAG = "GroupDetailActivity";

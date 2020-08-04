@@ -15,6 +15,7 @@ import cn.rongcloud.im.niko.event.ItemCommentEvent;
 import cn.rongcloud.im.niko.model.CommentBean;
 import cn.rongcloud.im.niko.ui.activity.SelectAtPersonActivity;
 import cn.rongcloud.im.niko.ui.adapter.BaseItemView;
+import cn.rongcloud.im.niko.utils.BirthdayToAgeUtil;
 import cn.rongcloud.im.niko.utils.glideutils.GlideImageLoaderUtil;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -64,6 +65,7 @@ public class ItemComment extends BaseItemView {
         if(!TextUtils.isEmpty(date)&&date.length()>10){
             date = date.substring(5,10);
         }
+        date = BirthdayToAgeUtil.scFormatYearMonth(date);
         String name = commentBean.getUserHead().getName();
         if(commentBean.getTUID() == 0 && commentBean.getAtUID() == 0){
             //别人评论你

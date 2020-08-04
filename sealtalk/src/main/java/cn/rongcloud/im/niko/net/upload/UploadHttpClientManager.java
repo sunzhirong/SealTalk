@@ -36,36 +36,4 @@ public class UploadHttpClientManager {
         return client;
     }
 
-    /**
-     * 设置用户登录认证
-     *
-     * @param auth
-     */
-    public void setAuthHeader(String auth) {
-        SharedPreferences.Editor config = context.getSharedPreferences(NetConstant.API_SP_NAME_NET, MODE_PRIVATE)
-                .edit();
-        config.putString(NetConstant.API_SP_KEY_NET_HEADER_AUTH, auth);
-        config.commit();
-    }
-
-    /**
-     * 获取用户登录认证
-     *
-     * @return
-     */
-    public String getCurrentAuth() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(NetConstant.API_SP_NAME_NET, MODE_PRIVATE);
-        return sharedPreferences.getString(NetConstant.API_SP_KEY_NET_HEADER_AUTH, null);
-    }
-
-    /**
-     * 清除包括cookie和登录认证
-     */
-    public void clearRequestCache() {
-        SharedPreferences.Editor config = context.getSharedPreferences(NetConstant.API_SP_NAME_NET, MODE_PRIVATE)
-                .edit();
-        config.remove(NetConstant.API_SP_KEY_NET_HEADER_AUTH);
-        config.remove(NetConstant.API_SP_KEY_NET_COOKIE_SET);
-        config.commit();
-    }
 }

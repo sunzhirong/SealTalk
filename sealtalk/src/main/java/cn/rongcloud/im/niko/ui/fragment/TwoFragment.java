@@ -2,22 +2,40 @@ package cn.rongcloud.im.niko.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
-import cn.rongcloud.im.niko.BaseFragment;
+import com.alibaba.fastjson.JSON;
+
+import java.util.List;
+
+import androidx.lifecycle.ViewModelProviders;
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.rongcloud.im.Book;
+import cn.rongcloud.im.BookDataBase;
 import cn.rongcloud.im.R;
+import cn.rongcloud.im.niko.BaseFragment;
 import cn.rongcloud.im.niko.common.LogTag;
 import cn.rongcloud.im.niko.model.Status;
 import cn.rongcloud.im.niko.utils.ToastUtils;
 import cn.rongcloud.im.niko.utils.log.SLog;
 import cn.rongcloud.im.niko.viewmodel.LoginViewModel;
-
-import androidx.lifecycle.ViewModelProviders;
-import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
 public class TwoFragment extends BaseFragment {
+    @BindView(R.id.btn_get_token)
+    Button mBtnGetToken;
+    @BindView(R.id.btn_init_token)
+    Button mBtnInitToken;
+    @BindView(R.id.btn_create_db)
+    Button mBtnCreateDb;
+    @BindView(R.id.btn_insert)
+    Button mBtnInsert;
+    @BindView(R.id.btn_search)
+    Button mBtnSearch;
     private LoginViewModel mLoginViewModel;
     //自己的测试用户1
     //{"userId":"niko1","token":"GEpsiFHSeu9WHjEyUGfZJ7rbXNyChVbiuqG1LeOB0KU=@u7r5.cn.rongnav.com;u7r5.cn.rongcfg.com"}
@@ -58,7 +76,7 @@ public class TwoFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.btn_get_token, R.id.btn_init_token})
+    @OnClick({R.id.btn_get_token, R.id.btn_init_token,R.id.btn_create_db, R.id.btn_insert, R.id.btn_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_get_token:
@@ -67,8 +85,21 @@ public class TwoFragment extends BaseFragment {
             case R.id.btn_init_token:
                 connextIM();
                 break;
+            case R.id.btn_create_db:
+                break;
+            case R.id.btn_insert:
+                Book book = new Book();
+                book.setId(String.valueOf(System.currentTimeMillis()));
+                book.setName(System.currentTimeMillis()+"niko");
+                BookDataBase.getInstance(getContext()).bookDao().insertBook(book);
+                break;
+            case R.id.btn_search:
+                List<Book> all = BookDataBase.getInstance(getContext()).bookDao().getAll();
+                Log.e("niko", JSON.toJSONString(all));
+                break;
         }
     }
+
 
     private void connextIM() {
         RongIM.connect(mToken, 10, new RongIMClient.ConnectCallback() {
@@ -113,4 +144,6 @@ public class TwoFragment extends BaseFragment {
             }
         });
     }
+
+
 }

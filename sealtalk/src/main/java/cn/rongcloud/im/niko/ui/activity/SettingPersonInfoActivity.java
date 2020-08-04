@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.R;
@@ -17,6 +18,7 @@ import cn.rongcloud.im.niko.model.Status;
 import cn.rongcloud.im.niko.sp.ProfileCache;
 import cn.rongcloud.im.niko.utils.BirthdayToAgeUtil;
 import cn.rongcloud.im.niko.utils.ToastUtils;
+import cn.rongcloud.im.niko.utils.glideutils.GlideImageLoaderUtil;
 import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
 import cn.rongcloud.im.niko.widget.SettingItemView;
 import cn.rongcloud.im.niko.widget.dialog.SelectGenderBottomDialog;
@@ -38,6 +40,8 @@ public class SettingPersonInfoActivity extends BaseActivity {
     public static final int TYPE_SCHOOL = 1;
     public static final int TYPE_EMAIL = 2;
 
+    @BindView(R.id.iv_head)
+    ImageView mIvHead;
     @BindView(R.id.siv_img)
     SettingItemView mSivImg;
     @BindView(R.id.siv_nickname)
@@ -103,7 +107,7 @@ public class SettingPersonInfoActivity extends BaseActivity {
 //                ToastUtils.showToast("刷新界面");
 //                refreshUI();
 
-                mUserInfoViewModel.getProfile();
+                mUserInfoViewModel.getProfile(ProfileUtils.sProfileInfo.getId());
             }
         });
 
@@ -112,27 +116,27 @@ public class SettingPersonInfoActivity extends BaseActivity {
                     dismissLoadingDialog(new Runnable() {
                         @Override
                         public void run() {
-//                            ProfileUtils.sProfileInfo = resource.data;
-//                            mUserInfoViewModel.getProfileCache().saveUserCache(resource.data);
-//                            refreshUI();
+                            ProfileUtils.sProfileInfo.getHead().setUserIcon(resource.data);
+                            mUserInfoViewModel.getProfileCache().saveUserCache(ProfileUtils.sProfileInfo);
+                            refreshUI();
                         }
                     });
 
                 } else if (resource.status == Status.LOADING) {
-//                    showLoadingDialog("");
+                    showLoadingDialog("");
                 } else {
-//                    dismissLoadingDialog(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            showToast(resource.message);
-//                        }
-//                    });
-//                }
+                    dismissLoadingDialog(new Runnable() {
+                        @Override
+                        public void run() {
+                            showToast(resource.message);
+                        }
+                    });
+
             }
         });
 
         if(mUserInfoViewModel.getProfileCache().getUserCache()==null) {
-            mUserInfoViewModel.getProfile();
+            mUserInfoViewModel.getProfile(ProfileUtils.sProfileInfo.getId());
         }else {
             ProfileUtils.sProfileInfo = mUserInfoViewModel.getProfileCache().getUserCache();
             refreshUI();
@@ -150,6 +154,7 @@ public class SettingPersonInfoActivity extends BaseActivity {
         mSivOwn.setValue(profileInfo.getBio());
         mSivSchool.setValue(profileInfo.getSchool());
         mSivAge.setValue(BirthdayToAgeUtil.BirthdayToAge(profileInfo.getDOB()));
+        GlideImageLoaderUtil.loadCircleImage(mContext,mIvHead,profileInfo.getHead().getUserIcon());
     }
 
     @OnClick({R.id.siv_img, R.id.siv_nickname, R.id.siv_gender, R.id.siv_city, R.id.siv_own, R.id.siv_school, R.id.siv_age})

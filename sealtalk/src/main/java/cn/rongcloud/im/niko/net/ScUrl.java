@@ -22,6 +22,7 @@ public class ScUrl {
 
     public static final String VIP_CHECK = "/api/ScUser/VIPCheck";//VIP界面获取相关信息
     public static final String VIP_INFO = "/api/ScSocial/VIPCfgInfo";//获取VIP设置列表
+    public static final String LIKE_LIST = "/api/ScMoment/MomentLikeList";//获取VIP设置列表
 
 
 

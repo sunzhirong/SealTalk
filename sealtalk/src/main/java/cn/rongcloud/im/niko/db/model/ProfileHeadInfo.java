@@ -2,62 +2,71 @@ package cn.rongcloud.im.niko.db.model;
 
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+@Entity(tableName = "profile_head")
 public class ProfileHeadInfo {
-        /**
-         * UID : 0
-         * Name : string
-         * NameColor : string
-         * UserIcon : string
-         * Gender : true
-         */
+    /**
+     * UID : 0
+     * Name : string
+     * NameColor : string
+     * UserIcon : string
+     * Gender : true
+     */
 
+    @PrimaryKey
+    @NonNull
+    private int UID;
+    @ColumnInfo
+    private String Name;
+    @ColumnInfo
+    private String NameColor;
+    @ColumnInfo
+    private String UserIcon;
+    @ColumnInfo
+    private boolean Gender;
 
+    public int getUID() {
+        return UID;
+    }
 
-        private int UID;
-        private String Name;
-        private String NameColor;
-        private String UserIcon;
-        private boolean Gender;
+    public void setUID(int UID) {
+        this.UID = UID;
+    }
 
-        public int getUID() {
-            return UID;
-        }
+    public String getName() {
+        return Name;
+    }
 
-        public void setUID(int UID) {
-            this.UID = UID;
-        }
+    public void setName(String Name) {
+        this.Name = Name;
+    }
 
-        public String getName() {
-            return Name;
-        }
+    public String getNameColor() {
+        return NameColor;
+    }
 
-        public void setName(String Name) {
-            this.Name = Name;
-        }
+    public void setNameColor(String NameColor) {
+        this.NameColor = NameColor;
+    }
 
-        public String getNameColor() {
-            return NameColor;
-        }
+    public String getUserIcon() {
+        return UserIcon;
+    }
 
-        public void setNameColor(String NameColor) {
-            this.NameColor = NameColor;
-        }
+    public void setUserIcon(String UserIcon) {
+        this.UserIcon = UserIcon;
+    }
 
-        public String getUserIcon() {
-            return UserIcon;
-        }
+    public boolean isGender() {
+        return Gender;
+    }
 
-        public void setUserIcon(String UserIcon) {
-            this.UserIcon = UserIcon;
-        }
-
-        public boolean isGender() {
-            return Gender;
-        }
-
-        public void setGender(boolean Gender) {
-            this.Gender = Gender;
-        }
+    public void setGender(boolean Gender) {
+        this.Gender = Gender;
+    }
 
     @Override
     public boolean equals(Object o) {

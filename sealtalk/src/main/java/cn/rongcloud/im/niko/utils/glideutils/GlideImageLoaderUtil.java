@@ -45,7 +45,7 @@ public class GlideImageLoaderUtil {
         }
     }
 
-    private static String getScString(String imgUrl) {
+    public static String getScString(String imgUrl) {
         if(!TextUtils.isEmpty(imgUrl)&&imgUrl.startsWith("_")) {
             imgUrl = "https://ttmedia.alilusions.com/" + imgUrl.replace("_", "/");
         }

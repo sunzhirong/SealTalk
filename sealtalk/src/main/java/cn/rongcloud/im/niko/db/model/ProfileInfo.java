@@ -3,9 +3,12 @@ package cn.rongcloud.im.niko.db.model;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+@Entity(tableName = "profile")
 public class ProfileInfo {
     /**
      * Head : {"UID":0,"Name":"string","NameColor":"string","UserIcon":"string","Gender":true}
@@ -19,30 +22,41 @@ public class ProfileInfo {
      * FavorTopicIDs : [0]
      */
 
+    @PrimaryKey
+    @NonNull
+    private int id;
 
-
-//    @Embedded
+    @Embedded
+    @NonNull
     private ProfileHeadInfo Head;
 
-
-//    @PrimaryKey
+    @ColumnInfo
     private String Bio;//个人简介
-//    @PrimaryKey
+    @ColumnInfo
     private String Location;
-//    @PrimaryKey
+    @ColumnInfo
     private String School;
-//    @PrimaryKey
+    @ColumnInfo
     private int Followers;
-//    @PrimaryKey
+    @ColumnInfo
     private int Followings;
-//    @PrimaryKey
+    @ColumnInfo
     private int Likes;
-//    @PrimaryKey
+    @ColumnInfo
     private int Moments;
-//    @PrimaryKey
-    private List<Integer> FavorTopicIDs;
-//    @PrimaryKey
+//    @ColumnInfo
+//    private List<Integer> FavorTopicIDs;
+    @ColumnInfo
     private String DOB;
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getDOB() {
         return DOB;
@@ -116,13 +130,13 @@ public class ProfileInfo {
         this.Moments = Moments;
     }
 
-    public List<Integer> getFavorTopicIDs() {
-        return FavorTopicIDs;
-    }
-
-    public void setFavorTopicIDs(List<Integer> FavorTopicIDs) {
-        this.FavorTopicIDs = FavorTopicIDs;
-    }
+//    public List<Integer> getFavorTopicIDs() {
+//        return FavorTopicIDs;
+//    }
+//
+//    public void setFavorTopicIDs(List<Integer> FavorTopicIDs) {
+//        this.FavorTopicIDs = FavorTopicIDs;
+//    }
 
 
 }

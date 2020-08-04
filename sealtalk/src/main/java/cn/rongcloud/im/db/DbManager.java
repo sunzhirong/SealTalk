@@ -8,6 +8,7 @@ import cn.rongcloud.im.common.LogTag;
 import cn.rongcloud.im.db.dao.FriendDao;
 import cn.rongcloud.im.db.dao.GroupDao;
 import cn.rongcloud.im.db.dao.GroupMemberDao;
+import cn.rongcloud.im.db.dao.NikoUserDao;
 import cn.rongcloud.im.db.dao.UserDao;
 import cn.rongcloud.im.utils.log.SLog;
 import io.rong.imlib.MD5;
@@ -100,5 +101,14 @@ public class DbManager {
             return null;
         }
         return database.getGroupMemberDao();
+    }
+
+
+    public NikoUserDao getNikoUserDao() {
+        if (database == null) {
+            SLog.e(LogTag.DB, "Get Dao need openDb first.");
+            return null;
+        }
+        return database.getNikoUserDao();
     }
 }

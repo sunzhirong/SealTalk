@@ -401,4 +401,8 @@ public class SettingItemView extends LinearLayout {
             ivSelectImage.setVisibility(View.GONE);
         }
     }
+
+    public ImageView getIvImage() {
+        return ivImage;
+    }
 }

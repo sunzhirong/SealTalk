@@ -1,9 +1,21 @@
 package cn.rongcloud.im.niko.ui.activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
+
+import java.io.File;
+
+import androidx.core.content.FileProvider;
 import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.niko.VipActivity;
 import cn.rongcloud.im.niko.db.DbManager;
@@ -43,6 +55,7 @@ public class SettingActivity extends BaseActivity {
     private CommonDialog mLogoutDialog;
     private CommonDialog mClearCacheDialog;
     private UserInfoViewModel mUserInfoViewModel;
+    private File mFile;
 
     @Override
     protected int getLayoutId() {
@@ -108,13 +121,14 @@ public class SettingActivity extends BaseActivity {
         });
 
 
-        mUserInfoViewModel.getProfile();
+        mUserInfoViewModel.getProfile(ProfileUtils.sProfileInfo.getId());
         mUserInfoViewModel.hasSetPassword();
     }
 
 
 
-    @OnClick({R.id.siv_info, R.id.siv_notification, R.id.siv_hobby, R.id.siv_contact, R.id.siv_modify_pwd, R.id.siv_company, R.id.siv_clear, R.id.siv_logout})
+    @OnClick({R.id.siv_info, R.id.siv_notification, R.id.siv_hobby, R.id.siv_contact, R.id.siv_modify_pwd,
+            R.id.siv_company, R.id.siv_clear, R.id.siv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.siv_info:
@@ -180,6 +194,9 @@ public class SettingActivity extends BaseActivity {
                 break;
         }
     }
+
+
+
 
 //    private void cityTest() {
 //        String json = FileUtils.getJson(this, "data.json");

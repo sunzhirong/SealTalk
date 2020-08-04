@@ -78,6 +78,9 @@
             app:item_image="@drawable/img_setting_logout"
             app:item_content="@string/setting_logout" />
 
-
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="12dp"
     android:paddingRight="12dp"
+    android:id="@+id/ll_container"
     android:layout_marginBottom="15dp"
     android:orientation="horizontal">
 
@@ -20,12 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <io.rong.imkit.widget.AsyncImageView
-                android:id="@+id/rc_left"
+            <ImageView
+                android:id="@+id/iv_left"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:RCDefDrawable="@drawable/rc_ic_def_msg_portrait"
-                app:RCShape="circle" />
+                 />
 
             <TextView
                 android:layout_marginLeft="7dp"
@@ -50,6 +50,7 @@
 
 
         <TextView
+            android:id="@+id/tv_content"
             android:layout_marginTop="5dp"
             android:text="好久没试过遇见眼前一亮想去追的人 想当年15岁 遇到一个人 我就想一好久没试过遇见眼前一亮想去追的人 想当年15岁 遇到一个人 我就想一"
             android:ellipsize="end"
@@ -57,8 +58,10 @@
             style="@style/tv14BlackBStyle"/>
         
 
+
         
         <TextView
+            android:id="@+id/tv_title"
             android:layout_marginTop="9dp"
             android:drawablePadding="7dp"
             android:text="旅行拍摄"
@@ -77,11 +80,12 @@
         app:cardCornerRadius="5dp"
         app:cardElevation="0dp">
         <ImageView
-            android:background="@drawable/rc_ic_def_msg_portrait"
+            android:id="@+id/iv_right"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <ImageView
+            android:id="@+id/iv_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

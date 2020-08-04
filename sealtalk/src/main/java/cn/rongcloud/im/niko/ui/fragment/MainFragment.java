@@ -2,14 +2,23 @@ package cn.rongcloud.im.niko.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import cn.rongcloud.im.db.DbManager;
 import cn.rongcloud.im.niko.BaseFragment;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.niko.common.NetConstant;
+import cn.rongcloud.im.niko.db.model.ProfileInfo;
 import cn.rongcloud.im.niko.model.Result;
 import cn.rongcloud.im.niko.model.sc.TokenBean;
 import cn.rongcloud.im.niko.net.ScInterceptor;
@@ -154,7 +163,7 @@ public class MainFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.btn_access_token, R.id.btn_send_sms, R.id.btn_vertify_sms, R.id.btn_user_token})
+    @OnClick({R.id.btn_access_token, R.id.btn_send_sms, R.id.btn_vertify_sms, R.id.btn_user_token,R.id.btn_get,R.id.btn_insert})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_access_token:
@@ -169,6 +178,29 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_user_token:
                 NetConstant.Authorization = "Basic ampBcHBBcGlDbGllbnQ6Q2lyY2xlMjAyMEBXb3JsZA==";
                 mLoginViewModel.getUserToken();
+                break;
+            case R.id.btn_get:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        List<ProfileInfo> userById = DbManager.getInstance(getContext()).getNikoUserDao().getAll();
+                        Log.e("niko","获取成功"+ gson.toJson(userById));
+                    }
+                }).start();
+                break;
+            case R.id.btn_insert:
+                String userString = "{\"Head\":{\"UID\":2196,\"Name\":\"Nikowq\",\"NameColor\":\"573C89\",\"UserIcon\":\"_aa_UserIcon.jpg\",\"Gender\":false},\"Bio\":\"Dydydyhhjvvnn\",\"Location\":\"中国宁夏石嘴山\",\"School\":\"Xnxbx767\",\"DOB\":\"2010-07-09T00:00:00Z\",\"Email\":null,\"City\":null,\"Followers\":8,\"Followings\":5,\"Likes\":0,\"Moments\":0}";
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        ProfileInfo profileInfo = gson.fromJson(userString, ProfileInfo.class);
+                        profileInfo.setId(2196);
+                        DbManager.getInstance(getContext()).getNikoUserDao().insertUser(profileInfo);
+                        Log.e("niko","保存成功");
+                    }
+                }).start();
                 break;
         }
     }

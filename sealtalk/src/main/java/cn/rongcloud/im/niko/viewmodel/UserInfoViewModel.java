@@ -12,6 +12,7 @@ import cn.rongcloud.im.niko.model.FollowRequestInfo;
 import cn.rongcloud.im.niko.model.FriendInfo;
 import cn.rongcloud.im.niko.model.GroupDataReq;
 import cn.rongcloud.im.niko.model.GroupInfoBean;
+import cn.rongcloud.im.niko.model.MyLikeBean;
 import cn.rongcloud.im.niko.model.Resource;
 import cn.rongcloud.im.niko.model.Result;
 import cn.rongcloud.im.niko.sp.ProfileCache;
@@ -45,6 +46,7 @@ public class UserInfoViewModel extends AndroidViewModel {
     private SingleSourceLiveData<Result<GroupInfoBean>> getGroupInfoBeanResult =  new SingleSourceLiveData<>();
     private SingleSourceLiveData<Result<Boolean>> getSetAliasResult =  new SingleSourceLiveData<>();
     private SingleSourceLiveData<Result<Boolean>> getAddBlackResult =  new SingleSourceLiveData<>();
+    private SingleSourceLiveData<Result<List<MyLikeBean>>> getMyLiekListResult =  new SingleSourceLiveData<>();
 
 
 
@@ -64,8 +66,8 @@ public class UserInfoViewModel extends AndroidViewModel {
         return profileResult;
     }
 
-    public void getProfile() {
-        profileResult.setSource(userTask.getProfile());
+    public void getProfile(int uuid) {
+        profileResult.setSource(userTask.getProfile(uuid));
     }
 
 
@@ -205,6 +207,16 @@ public class UserInfoViewModel extends AndroidViewModel {
 
     public SingleSourceLiveData<Result<Boolean>> getAddBlackesult() {
         return getAddBlackResult;
+    }
+
+
+
+    public void myLiekList(int skip,int take){
+        getMyLiekListResult.setSource(userTask.myLiekList(skip,take));
+    }
+
+    public SingleSourceLiveData<Result<List<MyLikeBean>>> getMyLiekListResult() {
+        return getMyLiekListResult;
     }
 
 

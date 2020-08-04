@@ -17,4 +17,21 @@
         android:layout_height="wrap_content"
         android:text="init im" />
 
+    <Button
+        android:id="@+id/btn_create_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="create_db" />
+
+    <Button
+        android:id="@+id/btn_insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="insert" />
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="search" />
 </LinearLayout>

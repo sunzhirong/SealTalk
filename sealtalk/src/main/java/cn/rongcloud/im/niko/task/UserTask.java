@@ -2,10 +2,24 @@ package cn.rongcloud.im.niko.task;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+
+import androidx.lifecycle.MediatorLiveData;
+import cn.rongcloud.im.db.DbManager;
+import cn.rongcloud.im.db.dao.NikoUserDao;
+import cn.rongcloud.im.db.dao.UserDao;
+import cn.rongcloud.im.db.model.UserInfo;
+import cn.rongcloud.im.im.IMManager;
+import cn.rongcloud.im.model.UserCacheInfo;
 import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.niko.db.model.ProfileInfo;
 import cn.rongcloud.im.niko.model.CommentAtReq;
@@ -15,10 +29,12 @@ import cn.rongcloud.im.niko.model.FollowRequestInfo;
 import cn.rongcloud.im.niko.model.FriendInfo;
 import cn.rongcloud.im.niko.model.GroupInfoBean;
 import cn.rongcloud.im.niko.model.GroupDataReq;
+import cn.rongcloud.im.niko.model.MyLikeBean;
 import cn.rongcloud.im.niko.model.Resource;
 import cn.rongcloud.im.niko.model.Result;
 import cn.rongcloud.im.niko.model.sc.TokenBean;
 import cn.rongcloud.im.niko.net.HttpClientManager;
+import cn.rongcloud.im.niko.net.NetworkBoundResource;
 import cn.rongcloud.im.niko.net.NetworkOnlyResource;
 import cn.rongcloud.im.niko.net.RetrofitUtil;
 import cn.rongcloud.im.niko.net.ScInterceptor;
@@ -30,6 +46,7 @@ import cn.rongcloud.im.niko.net.token.TokenHttpClientManager;
 import cn.rongcloud.im.niko.net.upload.UploadHttpClientManager;
 import cn.rongcloud.im.niko.utils.log.SLog;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +54,9 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import cn.rongcloud.im.utils.RongGenerate;
+import cn.rongcloud.im.utils.SearchUtils;
+import io.rong.message.utils.BitmapUtil;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -48,6 +68,7 @@ public class UserTask {
     private ScIMService scIMService;
     private UploadService uploadService;
     private Context context;
+    private DbManager dbManager;
 
     public UserTask(Context context) {
         this.context = context.getApplicationContext();
@@ -55,6 +76,8 @@ public class UserTask {
         tokenService = TokenHttpClientManager.getInstance(context).getClient().createService(TokenService.class);
         scIMService = HttpClientManager.getInstance(context).getClient().createService(ScIMService.class);
         uploadService = UploadHttpClientManager.getInstance(context).getClient().createService(UploadService.class);
+
+        dbManager = DbManager.getInstance(context.getApplicationContext());
     }
 
 
@@ -154,10 +177,49 @@ public class UserTask {
     }
 
 
-    public LiveData<Resource<ProfileInfo>> getProfile(){
-//        MediatorLiveData<Resource<Result<ProfileInfo>>> result = new MediatorLiveData<>();
-//        result.setValue(Resource.loading(null));
-        LiveData<Resource<ProfileInfo>> profile = new NetworkOnlyResource<ProfileInfo, Result<ProfileInfo>>() {
+    public LiveData<Resource<ProfileInfo>> getProfile(int uuid){
+        return new NetworkBoundResource<ProfileInfo, Result<ProfileInfo>>() {
+            @Override
+            protected void saveCallResult(@NonNull Result<ProfileInfo> item) {
+                if (item.getRsData() == null) return;
+                ProfileInfo userInfo = item.getRsData();
+
+                NikoUserDao userDao = dbManager.getNikoUserDao();
+                if (userDao != null) {
+                    userInfo.setId(userInfo.getHead().getUID());
+                    userDao.insertUser(userInfo);
+                    Gson gson = new Gson();
+                    Log.e("niko","保存成功"+ gson.toJson(userInfo));
+
+                    LiveData<ProfileInfo> userById = userDao.getUserById(userInfo.getHead().getUID());
+                    Log.e("niko","保存成功"+ gson.toJson(userById.getValue()));
+                }
+
+//                // 更新 IMKit 显示缓存
+//                String alias = "";
+//                if (userDao != null) {
+//                    alias = userDao.getUserByIdSync(userInfo.getId()).getAlias();
+//                }
+//                //有备注名的时，使用备注名
+//                String name = TextUtils.isEmpty(alias) ? userInfo.getName() : alias;
+//                IMManager.getInstance().updateUserInfoCache(userInfo.getId(), name, Uri.parse(userInfo.getPortraitUri()));
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ProfileInfo> loadFromDb() {
+//                return new MediatorLiveData<>();
+
+                NikoUserDao userDao = dbManager.getNikoUserDao();
+                if (userDao != null) {
+                    LiveData<ProfileInfo> user = userDao.getUserById(uuid);
+                    Log.e("niko","获取成功"+JSON.toJSONString(user.getValue()));
+
+                    return user;
+                } else {
+                    return new MediatorLiveData<>();
+                }
+            }
 
             @NonNull
             @Override
@@ -165,7 +227,14 @@ public class UserTask {
                 return scUserService.getProfileInfo();
             }
         }.asLiveData();
-        return profile;
+//        LiveData<Resource<ProfileInfo>> profile = new NetworkOnlyResource<ProfileInfo, Result<ProfileInfo>>() {
+//            @NonNull
+//            @Override
+//            protected LiveData<Result<ProfileInfo>> createCall() {
+//                return scUserService.getProfileInfo();
+//            }
+//        }.asLiveData();
+//        return profile;
     }
 
 
@@ -277,11 +346,45 @@ public class UserTask {
                 List<MultipartBody.Part> parts = builder.build().parts();
                 SLog.e("niko",JSON.toJSONString(imageBody)+"--"+JSON.toJSONString(uploadFile));
 
+                String imageBase64 = getImageBase64(uploadFile.getAbsolutePath());
+                SLog.e("niko","base64 = "+ imageBase64);
+
+
                 return uploadService.uploadAvatar(parts);
             }
         }.asLiveData();
     }
 
+    public static String getImageBase64(String srcPath) {
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        newOpts.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        newOpts.inJustDecodeBounds = false;
+        int w = newOpts.outWidth;
+        int h = newOpts.outHeight;
+        float hh = 800f;
+        float ww = 480f;
+        int be = 1;
+        if (w > h && w > ww) {
+            be = (int) (newOpts.outWidth / ww);
+        } else if (w < h && h > hh) {
+            be = (int) (newOpts.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        newOpts.inSampleSize = be;
+        bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        int options = 100;
+        while (bos.toByteArray().length / 1024 > 200){
+            bos.reset();
+            options -= 5;
+            bitmap.compress(Bitmap.CompressFormat.JPEG,options,bos);
+        }
+        byte[] bytes=bos.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
 
 
     public LiveData<Result<List<CommentBean>>> getCommentList(int skip,int take){
@@ -387,7 +490,14 @@ public class UserTask {
         return scIMService.addBlack(requestBody);
     }
 
-
+    public LiveData<Result<List<MyLikeBean>>> myLiekList(int skip, int take){
+        HashMap<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("Skip", skip);
+        paramsMap.put("Take", take);
+        paramsMap.put("Data", 0);
+        RequestBody requestBody = RetrofitUtil.createJsonRequest(paramsMap);
+        return scUserService.getMyLiekList(requestBody);
+    }
 
 
 

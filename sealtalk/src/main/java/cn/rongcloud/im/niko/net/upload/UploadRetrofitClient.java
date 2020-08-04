@@ -36,12 +36,6 @@ public class UploadRetrofitClient {
     public UploadRetrofitClient(Context context, String baseUrl) {
         mContext = context;
 
-//        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
-//                .addInterceptor(new AddHeaderInterceptor(mContext))
-//                .addInterceptor(new ReceivedCookiesInterceptor(mContext))
-//                .connectTimeout(NetConstant.API_CONNECT_TIME_OUT, TimeUnit.SECONDS)
-//                .readTimeout(NetConstant.API_READ_TIME_OUT, TimeUnit.SECONDS)
-//                .writeTimeout(NetConstant.API_WRITE_TIME_OUT, TimeUnit.SECONDS);
 
         /*
          * 当 baseUrl 没有以 "/" 结尾时加入 "/"
@@ -86,9 +80,6 @@ public class UploadRetrofitClient {
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
             OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder()
-                    .addInterceptor(new AddHeaderInterceptor(mContext))
-                    .addInterceptor(new ReceivedCookiesInterceptor(mContext))
-//                    .addInterceptor(new ScTokenInterceptor())
                     .addInterceptor(new ScInterceptor())
                     .connectTimeout(NetConstant.API_CONNECT_TIME_OUT, TimeUnit.SECONDS)
                     .readTimeout(NetConstant.API_READ_TIME_OUT, TimeUnit.SECONDS)
@@ -109,67 +100,6 @@ public class UploadRetrofitClient {
 
 
 
-    /**
-     * 接受cookie拦截器
-     */
-    public class ReceivedCookiesInterceptor implements Interceptor {
-        private Context mContext;
-
-        public ReceivedCookiesInterceptor(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Response originalResponse = chain.proceed(chain.request());
-
-            if (!originalResponse.headers("Set-Cookie").isEmpty()) {
-                HashSet<String> cookiesSet = new HashSet<>(originalResponse.headers("Set-Cookie"));
-
-                SharedPreferences.Editor config = mContext.getSharedPreferences(NetConstant.API_SP_NAME_NET, MODE_PRIVATE)
-                        .edit();
-                config.putStringSet(NetConstant.API_SP_KEY_NET_COOKIE_SET, cookiesSet);
-                config.apply();
-            }
-
-
-            return originalResponse;
-        }
-    }
-
-    /**
-     * 添加header包含cookie拦截器
-     */
-    public class AddHeaderInterceptor implements Interceptor {
-        private Context mContext;
-
-        public AddHeaderInterceptor(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request.Builder builder = chain.request().newBuilder();
-            SharedPreferences preferences = mContext.getSharedPreferences(NetConstant.API_SP_NAME_NET,
-                    Context.MODE_PRIVATE);
-
-            //添加cookie
-            HashSet<String> cookieSet = (HashSet<String>) preferences.getStringSet(NetConstant.API_SP_KEY_NET_COOKIE_SET, null);
-            if (cookieSet != null) {
-                for (String cookie : cookieSet) {
-                    builder.addHeader("Cookie", cookie);
-                }
-            }
-
-            //添加用户登录认证
-            String auth = preferences.getString(NetConstant.API_SP_KEY_NET_HEADER_AUTH, null);
-            if (auth != null) {
-                builder.addHeader("Authorization", auth);
-            }
-
-            return chain.proceed(builder.build());
-        }
-    }
 
     public <T> T createService(Class<T> service) {
         return mRetrofit.create(service);

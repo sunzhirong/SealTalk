@@ -20,6 +20,18 @@
             android:orientation="vertical"
             android:paddingBottom="30dp">
 
+            <cn.rongcloud.im.niko.widget.SettingItemView
+                android:id="@+id/profile_siv_group_manager"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:item_content="群聊成员"
+                app:item_right_image="@drawable/img_item_setting_enter" />
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rv_group"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
+
             <cn.rongcloud.im.ui.widget.WrapHeightGridView
                 android:id="@+id/profile_gv_group_member"
                 android:layout_width="match_parent"
@@ -27,40 +39,11 @@
                 android:background="#ffffff"
                 android:gravity="start"
                 android:listSelector="@android:color/transparent"
-                android:numColumns="4"
+                android:numColumns="5"
                 android:paddingLeft="1dp"
                 android:paddingRight="1dp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#fff">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.25dp"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginRight="14dp"
-                    android:background="#dfdfdd" />
-            </LinearLayout>
-
-            <cn.rongcloud.im.niko.widget.SettingItemView
-                android:id="@+id/profile_siv_all_group_member"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:item_content="@string/profile_all_group_member">
-
-            </cn.rongcloud.im.niko.widget.SettingItemView>
-
-            <cn.rongcloud.im.niko.widget.SettingItemView
-                android:id="@+id/profile_siv_group_search_history_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/seal_profile_group_item_margin"
-                app:item_content="@string/profile_search_message">
-
-            </cn.rongcloud.im.niko.widget.SettingItemView>
 
             <cn.rongcloud.im.ui.view.UserInfoItemView
                 android:id="@+id/profile_uiv_group_portrait_container"
@@ -75,14 +58,6 @@
 
             </cn.rongcloud.im.ui.view.UserInfoItemView>
 
-            <cn.rongcloud.im.niko.widget.SettingItemView
-                android:id="@+id/profile_siv_group_name_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:item_content="@string/profile_group_name"
-                app:item_divider="true">
-
-            </cn.rongcloud.im.niko.widget.SettingItemView>
 
 
             <cn.rongcloud.im.niko.widget.SettingItemView
@@ -95,20 +70,19 @@
             </cn.rongcloud.im.niko.widget.SettingItemView>
 
 
+
             <cn.rongcloud.im.niko.widget.SettingItemView
-                android:id="@+id/profile_siv_group_manager"
+                android:id="@+id/profile_siv_group_search_history_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:item_content="@string/profile_group_manager">
+                app:item_content="@string/profile_search_message">
 
             </cn.rongcloud.im.niko.widget.SettingItemView>
-
 
             <cn.rongcloud.im.niko.widget.SettingItemView
                 android:id="@+id/profile_siv_message_notice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/seal_profile_group_item_margin"
                 app:item_content="群消息免打扰"
                 app:item_switch="true">
 
