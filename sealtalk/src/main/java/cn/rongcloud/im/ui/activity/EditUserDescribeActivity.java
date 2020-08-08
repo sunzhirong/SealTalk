@@ -191,11 +191,7 @@ public class EditUserDescribeActivity extends TitleBaseActivity implements View.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_SELECT_COUNTRY) {
-            CountryInfo info = data.getParcelableExtra(SelectCountryActivity.RESULT_PARAMS_COUNTRY_INFO);
-            SLog.d("edit_des_country", "info = " + info);
-            tvRegion.setText(info.getZipCode());
-        } else if (resultCode == RESULT_OK && requestCode == REQUEST_OPERATION_PICTURE) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_OPERATION_PICTURE) {
             if (data.getIntExtra(IntentExtra.OPERATE_PICTURE_ACTION, -1) == OPERATE_PICTURE_SAVE) {
                 savePicture();
             } else if (data.getIntExtra(IntentExtra.OPERATE_PICTURE_ACTION, -1) == OPERATE_PICTURE_DELETE) {
@@ -236,9 +232,6 @@ public class EditUserDescribeActivity extends TitleBaseActivity implements View.
                         enterImagePreview();
                     }
                 }
-                break;
-            case R.id.tv_region:
-                startActivityForResult(new Intent(this, SelectCountryActivity.class), REQUEST_CODE_SELECT_COUNTRY);
                 break;
         }
     }

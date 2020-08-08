@@ -41,10 +41,15 @@ import cn.rongcloud.im.model.VerifyResult;
 import cn.rongcloud.im.net.HttpClientManager;
 import cn.rongcloud.im.net.RetrofitUtil;
 import cn.rongcloud.im.net.service.UserService;
+import cn.rongcloud.im.niko.db.model.ProfileInfo;
+import cn.rongcloud.im.niko.net.service.ScUserService;
+import cn.rongcloud.im.niko.utils.glideutils.GlideImageLoaderUtil;
 import cn.rongcloud.im.sp.CountryCache;
 import cn.rongcloud.im.sp.UserCache;
 import cn.rongcloud.im.utils.CharacterParser;
+import cn.rongcloud.im.utils.ImageLoaderUtils;
 import cn.rongcloud.im.utils.NetworkBoundResource;
+import cn.rongcloud.im.utils.NetworkOnlyLiveData;
 import cn.rongcloud.im.utils.NetworkOnlyResource;
 import cn.rongcloud.im.utils.RongGenerate;
 import cn.rongcloud.im.utils.SearchUtils;
@@ -64,6 +69,7 @@ public class UserTask {
     //存储当前最新一次登录的用户信息
     private UserCache userCache;
     private CountryCache countryCache;
+    private ScUserService scUserService;
 
 
     public UserTask(Context context) {
@@ -74,6 +80,8 @@ public class UserTask {
         userCache = new UserCache(context.getApplicationContext());
         countryCache = new CountryCache(context.getApplicationContext());
         imManager = IMManager.getInstance();
+        scUserService = cn.rongcloud.im.niko.net.HttpClientManager.getInstance(context).getClient().createService(ScUserService.class);
+
     }
 
     /**
@@ -130,6 +138,9 @@ public class UserTask {
         return result;
     }
 
+
+
+
     /**
      * 获取用户信息
      *
@@ -137,11 +148,12 @@ public class UserTask {
      * @return
      */
     public LiveData<Resource<UserInfo>> getUserInfo(final String userId) {
+
         return new NetworkBoundResource<UserInfo, Result<UserInfo>>() {
             @Override
             protected void saveCallResult(@NonNull Result<UserInfo> item) {
-                if (item.getResult() == null) return;
-                UserInfo userInfo = item.getResult();
+                if (item.getRsData() == null) return;
+                UserInfo userInfo = item.getRsData();
 
                 UserDao userDao = dbManager.getUserDao();
                 if (userDao != null) {
@@ -204,7 +216,50 @@ public class UserTask {
             @NonNull
             @Override
             protected LiveData<Result<UserInfo>> createCall() {
-                return userService.getUserInfo(userId);
+
+
+
+                return new NetworkOnlyLiveData<Result<UserInfo>, Result<ProfileInfo>>() {
+                    @NonNull
+                    @Override
+                    protected LiveData<Result<ProfileInfo>> createCall() {
+                        HashMap<String, Object> paramsMap = new HashMap<>();
+                        paramsMap.put("Data", userId);
+                        RequestBody requestBody = RetrofitUtil.createJsonRequest(paramsMap);
+                        LiveData<Result<ProfileInfo>> userInfo = scUserService.getUserInfo(requestBody);
+                        return userInfo;
+                    }
+                    @Override
+                    protected Result<UserInfo> transformRequestType(Result<ProfileInfo> info){
+                        ProfileInfo rsData = info.getRsData();
+
+                        UserInfo userInfo = new UserInfo();
+
+                        Result<UserInfo> userInfoResult = new Result<UserInfo>();
+                        userInfoResult.RsCode = info.RsCode;
+
+                        userInfo.setId(String.valueOf(rsData.getHead().getUID()));
+                        userInfo.setAlias(rsData.getHead().getAlias());
+                        userInfo.setAliasSpelling(SearchUtils.fullSearchableString(rsData.getHead().getAlias()));
+                        userInfo.setName(rsData.getHead().getName());
+                        userInfo.setPortraitUri(GlideImageLoaderUtil.getScString(rsData.getHead().getUserIcon()));
+
+
+
+
+
+                        userInfoResult.setRsData(userInfo);
+                        return userInfoResult;
+                    }
+
+
+                }.asLiveData();
+
+//                LiveData<Result<UserInfo>> liveData = new MediatorLiveData<>();
+//
+//
+//
+//                return userService.getUserInfo(userId);
             }
         }.asLiveData();
     }
@@ -687,7 +742,7 @@ public class UserTask {
         return new NetworkBoundResource<List<UserSimpleInfo>, Result<List<FriendBlackInfo>>>() {
             @Override
             protected void saveCallResult(@NonNull Result<List<FriendBlackInfo>> item) {
-                List<FriendBlackInfo> result = item.getResult();
+                List<FriendBlackInfo> result = item.getRsData();
                 if (result == null) return;
 
                 List<BlackListEntity> blackList = new ArrayList<>();
@@ -825,7 +880,7 @@ public class UserTask {
                 // 先清除所有群组在通讯录状态
                 groupDao.clearAllGroupContact();
 
-                ContactGroupResult result = item.getResult();
+                ContactGroupResult result = item.getRsData();
                 if (result == null) return;
                 List<GroupEntity> list = result.getList();
                 if (list != null && list.size() > 0) {

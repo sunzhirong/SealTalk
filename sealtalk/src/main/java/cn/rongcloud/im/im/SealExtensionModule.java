@@ -146,6 +146,8 @@ public class SealExtensionModule extends DefaultExtensionModule {
 //        }
 
         List<IPluginModule> pluginModuleList = new ArrayList<>();
+        pluginModuleList.add(new ImagePlugin());
+        pluginModuleList.add(new SightPlugin());
         pluginModuleList.add(new LocationPlugin());
 
         return pluginModuleList;

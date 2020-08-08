@@ -19,7 +19,6 @@ import cn.rongcloud.im.model.CountryInfo;
 import cn.rongcloud.im.model.RegisterResult;
 import cn.rongcloud.im.model.Resource;
 import cn.rongcloud.im.model.Status;
-import cn.rongcloud.im.ui.activity.SelectCountryActivity;
 import cn.rongcloud.im.ui.widget.ClearWriteEditText;
 import cn.rongcloud.im.viewmodel.LoginViewModel;
 import cn.rongcloud.im.utils.log.SLog;
@@ -201,9 +200,6 @@ public class LoginRegisterFragment extends BaseFragment {
     @Override
     protected void onClick(View v, int id) {
         switch (id) {
-            case R.id.ll_reg_country_select:
-                startActivityForResult(new Intent(getActivity(), SelectCountryActivity.class), REQUEST_CODE_SELECT_COUNTRY);
-                break;
             case R.id.btn_reg_send_code:
                 String phoneNumber = phoneEdit.getText().toString().trim();
                 String phoneCode = countryCodeTv.getText().toString().trim();
@@ -287,16 +283,6 @@ public class LoginRegisterFragment extends BaseFragment {
         loginViewModel.register(phoneCode, phoneNumber, shortMsgCode, nickName, password);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK && requestCode == REQUEST_CODE_SELECT_COUNTRY) {
-            CountryInfo info = data.getParcelableExtra(SelectCountryActivity.RESULT_PARAMS_COUNTRY_INFO);
-            SLog.d("ss_country", "info = " + info);
-            countryNameTv.setText(info.getCountryName());
-            countryCodeTv.setText(info.getZipCode());
-        }
-    }
 
     public void setOnOnRegisterListener(OnRegisterListener listener) {
         this.listener = listener;

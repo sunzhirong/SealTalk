@@ -18,7 +18,6 @@ import cn.rongcloud.im.model.Resource;
 import cn.rongcloud.im.model.Result;
 import cn.rongcloud.im.model.VersionInfo;
 import cn.rongcloud.im.net.HttpClientManager;
-import cn.rongcloud.im.net.service.AppService;
 import cn.rongcloud.im.utils.NetworkOnlyResource;
 import io.rong.imkit.RongConfigurationManager;
 import io.rong.imkit.utilities.LangUtils;
@@ -27,34 +26,12 @@ import io.rong.imlib.common.BuildVar;
 
 public class AppTask {
 
-    private AppService appsService;
     private Context context;
 
     public AppTask(Context context) {
-        appsService = HttpClientManager.getInstance(context).getClient().createService(AppService.class);
         this.context = context.getApplicationContext();
     }
 
-    /**
-     * 获取当前的最新版本
-     *
-     * @return
-     */
-    public LiveData<Resource<VersionInfo>> getNewVersion() {
-        return new NetworkOnlyResource<VersionInfo, VersionInfo>() {
-
-            @NonNull
-            @Override
-            protected LiveData<VersionInfo> createCall() {
-                return appsService.getNewVersion();
-            }
-
-            @Override
-            protected VersionInfo transformRequestType(VersionInfo response) {
-                return response;
-            }
-        }.asLiveData();
-    }
 
     /**
      * SDK 版本号
@@ -65,20 +42,6 @@ public class AppTask {
         return BuildVar.SDK_VERSION;
     }
 
-    /**
-     * 获取聊天室
-     *
-     * @return
-     */
-    public LiveData<Resource<List<ChatRoomResult>>> getDiscoveryChatRoom() {
-        return new NetworkOnlyResource<List<ChatRoomResult>, Result<List<ChatRoomResult>>>() {
-            @NonNull
-            @Override
-            protected LiveData<Result<List<ChatRoomResult>>> createCall() {
-                return appsService.getDiscoveryChatRoom();
-            }
-        }.asLiveData();
-    }
 
     /**
      * 获取当前app 的语音设置

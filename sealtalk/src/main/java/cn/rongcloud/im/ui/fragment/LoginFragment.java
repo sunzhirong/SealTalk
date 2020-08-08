@@ -21,7 +21,6 @@ import cn.rongcloud.im.model.Resource;
 import cn.rongcloud.im.model.Status;
 import cn.rongcloud.im.model.UserCacheInfo;
 import cn.rongcloud.im.ui.activity.MainActivity;
-import cn.rongcloud.im.ui.activity.SelectCountryActivity;
 import cn.rongcloud.im.ui.widget.ClearWriteEditText;
 import cn.rongcloud.im.viewmodel.LoginViewModel;
 
@@ -151,10 +150,6 @@ public class LoginFragment extends BaseFragment {
 
                 login(countryCodeStr, phoneStr, passwordStr);
                 break;
-            case R.id.ll_country_select:
-                // 跳转区域选择界面
-                startActivityForResult(new Intent(getActivity(), SelectCountryActivity.class), REQUEST_CODE_SELECT_COUNTRY);
-                break;
             default:
                 break;
         }
@@ -179,15 +174,6 @@ public class LoginFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK && requestCode == REQUEST_CODE_SELECT_COUNTRY) {
-            CountryInfo info = data.getParcelableExtra(SelectCountryActivity.RESULT_PARAMS_COUNTRY_INFO);
-            countryNameTv.setText(info.getCountryName());
-            countryCodeTv.setText(info.getZipCode());
-        }
-    }
 
     /**
      * 设置上参数

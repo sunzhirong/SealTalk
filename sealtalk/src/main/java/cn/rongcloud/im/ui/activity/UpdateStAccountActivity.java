@@ -153,10 +153,10 @@ public class UpdateStAccountActivity extends TitleBaseActivity {
             public void onChanged(Resource<Result> resultResource) {
                 if (resultResource.status == Status.SUCCESS) {
                     if (resultResource.data != null) {
-                        if (resultResource.data.code == 200) {
+                        if (resultResource.data.RsCode == 200) {
                             showToast(R.string.seal_staccount_set_success);
                             finish();
-                        } else if (resultResource.data.code == 1000) {
+                        } else if (resultResource.data.RsCode == 1000) {
                             showSaveDialog(ACCOUNTEXIST);
                         }
                     }

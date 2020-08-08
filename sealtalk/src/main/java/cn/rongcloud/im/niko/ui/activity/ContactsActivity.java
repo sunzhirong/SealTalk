@@ -1,5 +1,6 @@
 package cn.rongcloud.im.niko.ui.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,6 +26,7 @@ import cn.rongcloud.im.niko.event.FollowEvent;
 import cn.rongcloud.im.niko.model.FollowRequestInfo;
 import cn.rongcloud.im.niko.model.FriendInfo;
 import cn.rongcloud.im.niko.ui.adapter.MembersAdapter;
+import cn.rongcloud.im.niko.utils.glideutils.GlideImageLoaderUtil;
 import cn.rongcloud.im.niko.utils.log.SLog;
 import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
 
@@ -44,6 +46,7 @@ import io.rong.imkit.mention.SideBar;
 import io.rong.imkit.tools.CharacterParser;
 import io.rong.imkit.widget.AsyncImageView;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 public class ContactsActivity extends BaseActivity implements MembersAdapter.OnDeleteClickListener {
 
@@ -147,6 +150,22 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
                 SLog.e("UserInfoViewModel", "刷新联系人");
                 mAllMemberList.clear();
                 List<FriendInfo> rsData = result.getRsData();
+
+                for (FriendInfo info : rsData){
+                    RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+                        /**
+                         * 获取设置用户信息. 通过返回的 userId 来封装生产用户信息.
+                         * @param userId 用户 ID
+                         */
+                        @Override
+                        public UserInfo getUserInfo(String userId) {
+                            return new UserInfo(String.valueOf(info.getUID()), info.getName(), Uri.parse(GlideImageLoaderUtil.getScString(info.getUserIcon())));
+                        }
+
+                    }, true);
+
+                }
 
                 for (int i = 0; i < rsData.size(); i++) {
                     FriendInfo profileHeadInfo = rsData.get(i);

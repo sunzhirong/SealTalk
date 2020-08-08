@@ -25,6 +25,9 @@ public class ScUrl {
     public static final String LIKE_LIST = "/api/ScMoment/MomentLikeList";//获取VIP设置列表
 
 
+    public static final String GET_OTHER_PROFILE = "/api/ScUser/GetOtherProfile";//根据userid获取用户信息
+
+
 
     public static final String HAS_SET_PASSWORD = "/api/ScUser/HasSetPassword";
 

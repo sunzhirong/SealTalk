@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-
 import cn.rongcloud.im.common.ErrorCode;
 import cn.rongcloud.im.common.LogTag;
 import cn.rongcloud.im.common.NetConstant;
@@ -14,13 +13,13 @@ import cn.rongcloud.im.model.Resource;
 import cn.rongcloud.im.model.Result;
 import cn.rongcloud.im.utils.log.SLog;
 
-public abstract class NetworkOnlyResource<ResultType,RequestType> {
+public abstract class NetworkOnlyLiveData<ResultType,RequestType> {
     private final ThreadManager threadManager;
 
-    private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
+    private final MediatorLiveData<ResultType> result = new MediatorLiveData<>();
 
     @MainThread
-    public NetworkOnlyResource() {
+    public NetworkOnlyLiveData() {
         this.threadManager = ThreadManager.getInstance();
         if(threadManager.isInMainThread()) {
             init();
@@ -30,7 +29,6 @@ public abstract class NetworkOnlyResource<ResultType,RequestType> {
 
     }
     private void init(){
-        result.setValue(Resource.loading(null));
         fetchFromNetwork();
     }
 
@@ -42,7 +40,6 @@ public abstract class NetworkOnlyResource<ResultType,RequestType> {
                 if(response instanceof Result){
                     int code = ((Result)response).RsCode;
                     if(code != NetConstant.REQUEST_SUCCESS_CODE){
-                        result.setValue(Resource.error(code, null));
                         return;
                     } else {
                         // do nothing
@@ -58,10 +55,10 @@ public abstract class NetworkOnlyResource<ResultType,RequestType> {
                     } catch (Exception e) {
                         SLog.e(LogTag.DB, "saveCallResult failed:" + e.toString());
                     }
-                    result.postValue(Resource.success(resultType));
+                    result.postValue(resultType);
                 });
             } else {
-                result.setValue(Resource.error(ErrorCode.API_ERR_OTHER.getCode(), null));
+//                result.setValue(Resource.error(ErrorCode.API_ERR_OTHER.getCode(), null));
             }
         });
     }
@@ -95,7 +92,7 @@ public abstract class NetworkOnlyResource<ResultType,RequestType> {
         }
     }
 
-    public LiveData<Resource<ResultType>> asLiveData() {
+    public LiveData<ResultType> asLiveData() {
         return result;
     }
 

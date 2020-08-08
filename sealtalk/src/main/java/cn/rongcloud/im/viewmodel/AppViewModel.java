@@ -25,10 +25,8 @@ import io.rong.imkit.utilities.LangUtils;
 public class AppViewModel extends AndroidViewModel {
     private final AppTask appTask;
     private String sealTalkVersionName;
-    private SingleSourceMapLiveData<Resource<VersionInfo>, Resource<VersionInfo.AndroidVersion>> hasNew;
     private MutableLiveData<String> sdkVersion = new MutableLiveData<>();
     private MutableLiveData<String> sealTalkVersion = new MutableLiveData<>();
-    private SingleSourceLiveData<Resource<List<ChatRoomResult>>> chatRoomResultList = new SingleSourceLiveData<>();
     private MutableLiveData<LangUtils.RCLocale> languageLocal = new MutableLiveData<>();
     private MutableLiveData<Boolean> debugMode = new MutableLiveData<>();
 
@@ -37,44 +35,15 @@ public class AppViewModel extends AndroidViewModel {
         appTask = new AppTask(application);
         sealTalkVersionName = getSealTalkVersion(application);
 
-        hasNew = new SingleSourceMapLiveData<>(new Function<Resource<VersionInfo>, Resource<VersionInfo.AndroidVersion>>() {
-            @Override
-            public Resource<VersionInfo.AndroidVersion> apply(Resource<VersionInfo> input) {
-                if (input.data != null) {
-                    SLog.d("ss_version", "input == " + input);
-                    boolean hasNew = false;
-                    String newVersion = input.data.getAndroidVersion().getVersion();
-                    if (sealTalkVersionName != null) {
-                        sealTalkVersionName = sealTalkVersionName.replace(".", "");
-                        newVersion = newVersion.replace(".", "");
-                        if (Integer.parseInt(newVersion.toString()) > Integer.parseInt(sealTalkVersionName.toString())) {
-                            return new Resource<VersionInfo.AndroidVersion>(input.status, input.data.getAndroidVersion(), input.code);
-                        }
-                    }
-
-                }
-                return new Resource<VersionInfo.AndroidVersion>(input.status, null, input.code);
-            }
-        });
 
         sdkVersion.setValue(getSdkVersion());
         sealTalkVersion.setValue(sealTalkVersionName);
-        checkVersion();
-        requestChatRoomList();
         // 语言
         languageLocal.setValue(appTask.getLanguageLocal());
 
         debugMode.setValue(appTask.isDebugMode());
     }
 
-    /**
-     * 检测是否有新版本
-     *
-     * @return
-     */
-    public LiveData<Resource<VersionInfo.AndroidVersion>> getHasNewVersion() {
-        return hasNew;
-    }
 
     /**
      * 获取sdk 版本
@@ -92,28 +61,7 @@ public class AppViewModel extends AndroidViewModel {
         return sealTalkVersion;
     }
 
-    /**
-     * 检测版本
-     */
-    private void checkVersion() {
-        hasNew.setSource(appTask.getNewVersion());
-    }
 
-    /**
-     * 请求聊天室列表
-     */
-    public void requestChatRoomList() {
-        chatRoomResultList.setSource(appTask.getDiscoveryChatRoom());
-    }
-
-    /**
-     * 获取聊天室列表
-     *
-     * @return
-     */
-    public LiveData<Resource<List<ChatRoomResult>>> getChatRoonList() {
-        return chatRoomResultList;
-    }
 
     /**
      * 获取SDK版本

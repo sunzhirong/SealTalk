@@ -73,7 +73,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
             if (response != null) {
                 // 当数据结果属于 Result<> 结构，则判断当前的请求结果是否成功
                 if (response instanceof Result) {
-                    int code = ((Result) response).code;
+                    int code = ((Result) response).RsCode;
                     if (code != NetConstant.REQUEST_SUCCESS_CODE) {
                         onFetchFailed();
                         result.addSource(dbSource,

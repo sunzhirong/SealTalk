@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import cn.rongcloud.im.SealApp;
 import cn.rongcloud.im.niko.db.model.ProfileInfo;
 import cn.rongcloud.im.niko.model.sc.UserInfo;
+import cn.rongcloud.im.niko.utils.SPUtils;
+
 import com.google.gson.Gson;
 
 public class ProfileCache {
@@ -56,5 +59,7 @@ public class ProfileCache {
      */
     public void logoutClear() {
         sp.edit().putString(SP_CACHE_USER, "").commit();
+        SPUtils.setIMToken(SealApp.getApplication(),"");
+        SPUtils.setLogin(SealApp.getApplication(),false);
     }
 }

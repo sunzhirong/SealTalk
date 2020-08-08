@@ -51,6 +51,8 @@ import cn.rongcloud.im.model.UserCacheInfo;
 import cn.rongcloud.im.net.CallBackWrapper;
 import cn.rongcloud.im.net.HttpClientManager;
 import cn.rongcloud.im.net.service.UserService;
+import cn.rongcloud.im.niko.ProfileUtils;
+import cn.rongcloud.im.niko.utils.SPUtils;
 import cn.rongcloud.im.sp.UserCache;
 import cn.rongcloud.im.sp.UserConfigCache;
 import cn.rongcloud.im.ui.activity.ConversationActivity;
@@ -196,6 +198,9 @@ public class IMManager {
 //                // 存储当前登录成功的用户信息
 //                UserCacheInfo info = new UserCacheInfo(s, loginResult.token, phone, password, region, countryCache.getCountryInfoByRegion(region));
 //                userCache.saveUserCache(info);
+
+                SPUtils.setIMUserId(SealApp.getApplication(),s);
+
             }
 
             @Override
@@ -847,7 +852,7 @@ public class IMManager {
 
         RongExtensionManager.getInstance().registerExtensionModule(new ScLikeExtensionModule());
 
-        RongExtensionManager.getInstance().registerExtensionModule(new SightExtensionModule());
+//        RongExtensionManager.getInstance().registerExtensionModule(new SightExtensionModule());
 
         RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionModule(context));
 
@@ -886,8 +891,8 @@ public class IMManager {
 
         // 可在初始 SDK 时直接带入融云 IM 申请的APP KEY
 //        RongIM.init(context, BuildConfig.SEALTALK_APP_KEY, true);
-//        RongIM.init(context, "x18ywvqfx5h3c", true);
-        RongIM.init(context, "k51hidwqkv77b", true);
+        RongIM.init(context, "x18ywvqfx5h3c", true);
+//        RongIM.init(context, "k51hidwqkv77b", true);
     }
 
     /**
@@ -1516,6 +1521,7 @@ public class IMManager {
          *  考虑到会有后台调用此方法，所以不采用 LiveData 做返回值
          */
 
+//        token = SPUtils.getIMToken(SealApp.getApplication());
         token = "GEpsiFHSeu9WHjEyUGfZJ7rbXNyChVbiuqG1LeOB0KU=@u7r5.cn.rongnav.com;u7r5.cn.rongcfg.com";
 
         RongIM.connect(token, timeOut, new RongIMClient.ConnectCallback() {

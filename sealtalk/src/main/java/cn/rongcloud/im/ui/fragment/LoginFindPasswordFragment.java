@@ -18,7 +18,6 @@ import cn.rongcloud.im.common.ErrorCode;
 import cn.rongcloud.im.model.CountryInfo;
 import cn.rongcloud.im.model.Resource;
 import cn.rongcloud.im.model.Status;
-import cn.rongcloud.im.ui.activity.SelectCountryActivity;
 import cn.rongcloud.im.ui.widget.ClearWriteEditText;
 import cn.rongcloud.im.viewmodel.LoginViewModel;
 import cn.rongcloud.im.utils.log.SLog;
@@ -178,9 +177,6 @@ public class LoginFindPasswordFragment extends BaseFragment{
     @Override
     protected void onClick(View v, int id) {
         switch (id) {
-            case R.id.ll_country_select:
-                startActivityForResult(new Intent(getActivity(), SelectCountryActivity.class), REQUEST_CODE_SELECT_COUNTRY);
-                break;
             case R.id.btn_send_code:
                 String phoneStr = phoneEdit.getText().toString().trim();
                 String phoneCodeStr = countryCodeTv.getText().toString().trim();
@@ -266,17 +262,6 @@ public class LoginFindPasswordFragment extends BaseFragment{
         loginViewModel.resetPassword(countryCode, phoneNumber, shortMsgCode, password);
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK && requestCode == REQUEST_CODE_SELECT_COUNTRY) {
-            CountryInfo info = data.getParcelableExtra(SelectCountryActivity.RESULT_PARAMS_COUNTRY_INFO);
-            SLog.d("ss_country", "info = " + info);
-            countryNameTv.setText(info.getCountryName());
-            countryCodeTv.setText(info.getZipCode());
-        }
-    }
 
 
     public void setOnResetPasswordListener(OnResetPasswordListener listener) {

@@ -3,7 +3,6 @@ package cn.rongcloud.im.niko.model;
 
 import cn.rongcloud.im.niko.common.ErrorCode;
 import cn.rongcloud.im.niko.common.NetConstant;
-import cn.rongcloud.im.niko.model.sc.NetResponse;
 
 /**
  * 网络请求结果基础类
@@ -14,11 +13,9 @@ public class Result<T> {
     public T RsData;
     public int RsCode;
     public String RsMsg;
-    public NetResponse.RsDetailBean RsDetail;
     public String RsNote;
 
 
-    public String error;//适配解析问题
 
 
 
@@ -46,13 +43,6 @@ public class Result<T> {
         this.RsMsg = RsMsg;
     }
 
-    public NetResponse.RsDetailBean getRsDetail() {
-        return RsDetail;
-    }
-
-    public void setRsDetail(NetResponse.RsDetailBean RsDetail) {
-        this.RsDetail = RsDetail;
-    }
 
     public String getRsNote() {
         return RsNote;
@@ -63,6 +53,5 @@ public class Result<T> {
     }
 
 
-    public static class RsDetailBean {
-    }
+
 }

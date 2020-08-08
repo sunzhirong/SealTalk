@@ -157,7 +157,6 @@ public class ChatFragment extends BaseFragment {
                     if (mFlOrderLayout.getForeground() != null) {
                         mFlOrderLayout.getForeground().setAlpha(0);
                         EventBus.getDefault().post(new ShowMoreEvent(false));
-
                     }
                 }
             });

@@ -3,8 +3,6 @@ package cn.rongcloud.im.task;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,20 +10,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import cn.rongcloud.im.common.ErrorCode;
 import cn.rongcloud.im.db.DbManager;
-import cn.rongcloud.im.db.dao.FriendDao;
 import cn.rongcloud.im.db.dao.GroupDao;
 import cn.rongcloud.im.db.dao.GroupMemberDao;
 import cn.rongcloud.im.db.dao.UserDao;
-import cn.rongcloud.im.db.model.FriendShipInfo;
 import cn.rongcloud.im.db.model.GroupEntity;
 import cn.rongcloud.im.db.model.GroupExitedMemberInfo;
 import cn.rongcloud.im.db.model.GroupMemberInfoDes;
@@ -54,7 +46,6 @@ import cn.rongcloud.im.utils.NetworkBoundResource;
 import cn.rongcloud.im.utils.NetworkOnlyResource;
 import cn.rongcloud.im.utils.RongGenerate;
 import cn.rongcloud.im.utils.SearchUtils;
-import cn.rongcloud.im.utils.SingleSourceLiveData;
 import io.rong.imkit.tools.CharacterParser;
 import io.rong.imlib.model.Conversation;
 import okhttp3.RequestBody;
@@ -295,8 +286,8 @@ public class GroupTask {
 
             @Override
             protected void saveCallResult(@NonNull Result<RegularClearStatusResult> item) {
-                if (item.code == 200 && item.result != null) {
-                    updateGroupRegularClearStateInDB(groupId, item.result.clearStatus);
+                if (item.RsCode == 200 && item.RsData != null) {
+                    updateGroupRegularClearStateInDB(groupId, item.RsData.clearStatus);
                 }
             }
 
@@ -509,9 +500,9 @@ public class GroupTask {
         return new NetworkBoundResource<GroupEntity, Result<GroupEntity>>() {
             @Override
             protected void saveCallResult(@NonNull Result<GroupEntity> item) {
-                if (item.getResult() == null) return;
+                if (item.getRsData() == null) return;
 
-                GroupEntity groupEntity = item.getResult();
+                GroupEntity groupEntity = item.getRsData();
                 GroupDao groupDao = dbManager.getGroupDao();
                 if (groupDao != null) {
                     // 判断是否在通讯录中
@@ -615,7 +606,7 @@ public class GroupTask {
         return new NetworkBoundResource<List<GroupMember>, Result<List<GroupMemberInfoResult>>>() {
             @Override
             protected void saveCallResult(@NonNull Result<List<GroupMemberInfoResult>> item) {
-                if (item.getResult() == null) return;
+                if (item.getRsData() == null) return;
 
                 GroupMemberDao groupMemberDao = dbManager.getGroupMemberDao();
                 UserDao userDao = dbManager.getUserDao();
@@ -625,7 +616,7 @@ public class GroupTask {
                     groupMemberDao.deleteGroupMember(groupId);
                 }
 
-                List<GroupMemberInfoResult> result = item.getResult();
+                List<GroupMemberInfoResult> result = item.getRsData();
                 List<GroupMemberInfoEntity> groupEntityList = new ArrayList<>();
                 List<UserInfo> newUserList = new ArrayList<>();
                 for (GroupMemberInfoResult info : result) {
@@ -966,11 +957,11 @@ public class GroupTask {
 
             @Override
             protected void saveCallResult(@NonNull Result<List<GroupNoticeInfoResult>> item) {
-                if (item.getResult() == null) return;
+                if (item.getRsData() == null) return;
 
                 GroupDao groupDao = dbManager.getGroupDao();
 
-                List<GroupNoticeInfoResult> resultList = item.getResult();
+                List<GroupNoticeInfoResult> resultList = item.getRsData();
                 List<GroupNoticeInfo> infoList = new ArrayList<>();
                 if (resultList != null && resultList.size() > 0) {
                     List<String> idList = new ArrayList<>();
@@ -1120,11 +1111,11 @@ public class GroupTask {
 
             @Override
             protected void saveCallResult(@NonNull Result<List<GroupExitedMemberInfo>> item) {
-                if (item.getResult() == null) return;
+                if (item.getRsData() == null) return;
 
                 GroupDao groupDao = dbManager.getGroupDao();
 
-                List<GroupExitedMemberInfo> resultList = item.getResult();
+                List<GroupExitedMemberInfo> resultList = item.getRsData();
                 if (groupDao != null) {
                     groupDao.deleteAllGroupExited();
                 }
@@ -1169,11 +1160,11 @@ public class GroupTask {
 
             @Override
             protected void saveCallResult(@NonNull Result<GroupMemberInfoDes> item) {
-                if (item.getResult() == null) return;
+                if (item.getRsData() == null) return;
 
                 GroupDao groupDao = dbManager.getGroupDao();
 
-                GroupMemberInfoDes info = item.getResult();
+                GroupMemberInfoDes info = item.getRsData();
                 info.setGroupId(groupId);
                 info.setMemberId(memberId);
                 if (groupDao != null && info != null) {

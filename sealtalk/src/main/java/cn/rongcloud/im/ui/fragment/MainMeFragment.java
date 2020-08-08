@@ -70,14 +70,6 @@ public class MainMeFragment extends BaseFragment {
             }
         });
 
-        appViewModel.getHasNewVersion().observe(this, new Observer<Resource<VersionInfo.AndroidVersion>>() {
-            @Override
-            public void onChanged(Resource<VersionInfo.AndroidVersion> resource) {
-                if (resource.status == Status.SUCCESS && resource.data != null) {
-                    sivAbout.setTagImageVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         appViewModel.getLanguageLocal().observe(this, new Observer<LangUtils.RCLocale>() {
             @Override
@@ -123,14 +115,6 @@ public class MainMeFragment extends BaseFragment {
                 //佳信客服配置
                 builder.referrer("10001");
                 RongIM.getInstance().startCustomerServiceChat(getActivity(), "service", getString(R.string.seal_main_mine_online_custom_service), builder.build());
-                break;
-            case R.id.siv_about:
-                Intent intent = new Intent(getActivity(), AboutSealTalkActivity.class);
-                Resource<VersionInfo.AndroidVersion> resource = appViewModel.getHasNewVersion().getValue();
-                if (resource != null && resource.data != null && !TextUtils.isEmpty(resource.data.getUrl())) {
-                    intent.putExtra(IntentExtra.URL, resource.data.getUrl());
-                }
-                startActivity(intent);
                 break;
             default:
                 break;

@@ -50,7 +50,6 @@ public class ApiErrorCodeMap {
             put(SealTalkUrl.DELETE_FREIND, SealTalkUrlCode.DELETE_FREIND);
             put(SealTalkUrl.CLIENT_VERSION, SealTalkUrlCode.CLIENT_VERSION);
             put(SealTalkUrl.CHANGE_PASSWORD, SealTalkUrlCode.CHANGE_PASSWORD);
-            put(SealTalkUrl.GET_DISCOVERY_CHAT_ROOM, SealTalkUrlCode.GET_DISCOVERY_CHAT_ROOM);
             put(SealTalkUrl.GROUP_REMOVE_MANAGER, SealTalkUrlCode.GROUP_REMOVE_MANAGER);
             put(SealTalkUrl.GROUP_ADD_MANAGER, SealTalkUrlCode.GROUP_ADD_MANAGER);
             put(SealTalkUrl.GROUP_COPY, SealTalkUrlCode.GROUP_COPY);

@@ -102,9 +102,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ui.activity.SelectCountryActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

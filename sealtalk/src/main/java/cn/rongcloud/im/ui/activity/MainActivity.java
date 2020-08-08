@@ -290,16 +290,6 @@ public class MainActivity extends BaseActivity implements MorePopWindow.OnPopWin
     private void initViewModel() {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
-        appViewModel.getHasNewVersion().observe(this, new Observer<Resource<VersionInfo.AndroidVersion>>() {
-            @Override
-            public void onChanged(Resource<VersionInfo.AndroidVersion> resource) {
-                if (resource.status == Status.SUCCESS && resource.data != null) {
-                    if (tabGroupView.getSelectedItemId() != Tab.ME.getValue()) {
-                        ((MainBottomTabItem) tabGroupView.getView(Tab.ME.getValue())).setRedVisibility(View.VISIBLE);
-                    }
-                }
-            }
-        });
 
         // 未读消息
         mainViewModel.getUnReadNum().observe(this, new Observer<Integer>() {

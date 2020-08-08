@@ -110,7 +110,6 @@ public class SealTalkUrl {
 
     public static final String CHANGE_PASSWORD = "user/change_password";
 
-    public static final String GET_DISCOVERY_CHAT_ROOM = "misc/demo_square";
 
     public static final String FIND_FRIEND = "user/find_user";
 

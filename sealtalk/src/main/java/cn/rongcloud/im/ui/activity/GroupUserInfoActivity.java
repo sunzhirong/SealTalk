@@ -75,7 +75,6 @@ public class GroupUserInfoActivity extends TitleBaseActivity {
         tvRegion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(GroupUserInfoActivity.this, SelectCountryActivity.class), REQUEST_CODE_SELECT_COUNTRY);
             }
         });
         if (mType == FROM_USER_DETAIL) {
@@ -156,12 +155,4 @@ public class GroupUserInfoActivity extends TitleBaseActivity {
                 , etAliPay.getText().toString(), mAdapter.getData());
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_SELECT_COUNTRY) {
-            CountryInfo info = data.getParcelableExtra(SelectCountryActivity.RESULT_PARAMS_COUNTRY_INFO);
-            tvRegion.setText(info.getZipCode());
-        }
-    }
 }

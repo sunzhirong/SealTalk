@@ -13,15 +13,15 @@ import java.util.List;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.rongcloud.im.Book;
-import cn.rongcloud.im.BookDataBase;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.niko.BaseFragment;
 import cn.rongcloud.im.niko.common.LogTag;
 import cn.rongcloud.im.niko.model.Status;
+import cn.rongcloud.im.niko.utils.SPUtils;
 import cn.rongcloud.im.niko.utils.ToastUtils;
 import cn.rongcloud.im.niko.utils.log.SLog;
 import cn.rongcloud.im.niko.viewmodel.LoginViewModel;
+import cn.rongcloud.im.viewmodel.UserInfoViewModel;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
@@ -41,7 +41,7 @@ public class TwoFragment extends BaseFragment {
     //{"userId":"niko1","token":"GEpsiFHSeu9WHjEyUGfZJ7rbXNyChVbiuqG1LeOB0KU=@u7r5.cn.rongnav.com;u7r5.cn.rongcfg.com"}
     //{"userId":"niko2","token":"ObnhXRXO+AVWHjEyUGfZJ2HTIIz+TTa+pXvEWg4+OqE=@u7r5.cn.rongnav.com;u7r5.cn.rongcfg.com"}
 //    {"userId":"niko3","token":"4qzAmqgDGV1WHjEyUGfZJ59ivYEkLj0ZPFuR4TwKlck=@u7r5.cn.rongnav.com;u7r5.cn.rongcfg.com"}
-    private String mToken = "GEpsiFHSeu9WHjEyUGfZJ7rbXNyChVbiuqG1LeOB0KU=@u7r5.cn.rongnav.com;u7r5.cn.rongcfg.com";
+    private String mToken ;
     private String mUserId;
 
     @Override
@@ -51,6 +51,12 @@ public class TwoFragment extends BaseFragment {
 
     @Override
     protected void onInitView(Bundle savedInstanceState, Intent intent) {
+        mToken = SPUtils.getIMToken(getContext());
+        UserInfoViewModel userInfoViewModel = ViewModelProviders.of(this).get(UserInfoViewModel.class);
+        userInfoViewModel.getUserInfo().observe(this,userInfoResource -> {
+            Log.e("niko",JSON.toJSONString(userInfoResource));
+        });
+        userInfoViewModel.requestUserInfo(SPUtils.getIMIMUserId(getContext()));
         mLoginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         mLoginViewModel.getGetImTokenResult().observe(this, resource -> {
             if (resource.status == Status.SUCCESS) {
@@ -59,6 +65,7 @@ public class TwoFragment extends BaseFragment {
                     public void run() {
                         showToast("获取成功");
                         mToken = resource.data;
+                        SPUtils.setIMToken(getContext(),resource.data);
 //                        mUserId = resource.data.getUserId();
                     }
                 });
@@ -84,18 +91,6 @@ public class TwoFragment extends BaseFragment {
                 break;
             case R.id.btn_init_token:
                 connextIM();
-                break;
-            case R.id.btn_create_db:
-                break;
-            case R.id.btn_insert:
-                Book book = new Book();
-                book.setId(String.valueOf(System.currentTimeMillis()));
-                book.setName(System.currentTimeMillis()+"niko");
-                BookDataBase.getInstance(getContext()).bookDao().insertBook(book);
-                break;
-            case R.id.btn_search:
-                List<Book> all = BookDataBase.getInstance(getContext()).bookDao().getAll();
-                Log.e("niko", JSON.toJSONString(all));
                 break;
         }
     }

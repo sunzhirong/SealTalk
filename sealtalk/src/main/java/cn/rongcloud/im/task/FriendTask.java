@@ -75,7 +75,7 @@ public class FriendTask {
         return new NetworkBoundResource<List<FriendShipInfo>, Result<List<FriendShipInfo>>>() {
             @Override
             protected void saveCallResult(@NonNull Result<List<FriendShipInfo>> item) {
-                List<FriendShipInfo> list = item.getResult();
+                List<FriendShipInfo> list = item.getRsData();
                 SLog.i(TAG, "saveCallResult() list.size() :" + list.size());
                 UserInfo userInfo = null;
                 FriendInfo friendInfo = null;
@@ -174,7 +174,7 @@ public class FriendTask {
                 FriendDao friendDao = dbManager.getFriendDao();
                 if (userDao == null || friendDao == null) return;
 
-                FriendShipInfo friendShipInfo = item.getResult();
+                FriendShipInfo friendShipInfo = item.getRsData();
                 if (friendShipInfo == null) return;
 
                 UserInfo userInfo = new UserInfo();
@@ -509,7 +509,7 @@ public class FriendTask {
         return new NetworkBoundResource<List<PhoneContactInfo>, Result<List<GetContactInfoResult>>>() {
             @Override
             protected void saveCallResult(@NonNull Result<List<GetContactInfoResult>> item) {
-                List<GetContactInfoResult> contactInfoList = item.getResult();
+                List<GetContactInfoResult> contactInfoList = item.getRsData();
                 if (contactInfoList == null || contactInfoList.size() == 0) return;
 
                 UserDao userDao = dbManager.getUserDao();
@@ -623,7 +623,7 @@ public class FriendTask {
         return new NetworkBoundResource<FriendDescription, Result<FriendDescription>>() {
             @Override
             protected void saveCallResult(@NonNull Result<FriendDescription> item) {
-                FriendDescription friendDescription = item.getResult();
+                FriendDescription friendDescription = item.getRsData();
                 if (friendDescription == null) return;
                 friendDescription.setId(friendId);
                 FriendDao friendDao = dbManager.getFriendDao();

@@ -8,37 +8,47 @@ import cn.rongcloud.im.common.NetConstant;
  * @param <T> 请求结果的实体类
  */
 public class Result<T> {
-    public int code;
-    public T result;
+
+//    public T RsData;
+//    public int RsCode;
+//    public String RsMsg;
+//    public String RsNote;
+
+
+    public int RsCode;
+    public T RsData;
 
     public Result(){
     }
 
     public Result(int code){
-        this.code = code;
+        this.RsCode = code;
     }
 
-    public int getCode() {
-        return code;
+    public int getRsCode() {
+        return RsCode;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setRsCode(int rsCode) {
+        this.RsCode = rsCode;
     }
 
-    public T getResult() {
-        return result;
+    public T getRsData() {
+        return RsData;
     }
 
-    public void setResult(T result) {
-        this.result = result;
+    public void setRsData(T rsData) {
+        this.RsData = rsData;
     }
 
     public boolean isSuccess(){
-        return code == NetConstant.REQUEST_SUCCESS_CODE;
+        return RsCode == NetConstant.REQUEST_SUCCESS_CODE;
     }
 
     public String getErrorMessage(){
-        return ErrorCode.fromCode(code).getMessage();
+        return ErrorCode.fromCode(RsCode).getMessage();
     }
+
+
+
 }

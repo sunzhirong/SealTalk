@@ -67,7 +67,7 @@ public class UpdateGenderActivity extends TitleBaseActivity implements View.OnCl
             public void onChanged(Resource<Result> resultResource) {
                 if (resultResource.status == Status.SUCCESS) {
                     if (resultResource.data != null) {
-                        if (resultResource.data.code == 200) {
+                        if (resultResource.data.RsCode == 200) {
                             showToast(R.string.seal_gender_set_success);
                             finish();
                         } else {

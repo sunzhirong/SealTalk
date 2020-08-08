@@ -88,7 +88,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         SLog.e("Userintfo",JSON.toJSONString(mUserInfoViewModel.getProfileCache().getUserCache()));
-        ProfileUtils.sProfileInfo = mUserInfoViewModel.getProfileCache().getUserCache();
+//        ProfileUtils.sProfileInfo = mUserInfoViewModel.getProfileCache().getUserCache();
 
         mUserInfoViewModel.getHasSetPasswordResult().observe(this,result->{
             ProfileUtils.hasSetPw = result.RsData;

@@ -9,6 +9,9 @@ public class SPUtils {
 
     private static final String LOGIN="login";
     private static final String USER_TOKEN="user_token";
+    private static final String IM_TOKEN="im_token";
+    private static final String IM_USER_ID="im_user_id";
+
 
 
     private static SharedPreferences getPreference(Context context) {
@@ -38,6 +41,30 @@ public class SPUtils {
         SharedPreferences sp = getPreference(context);
         return sp.getString(USER_TOKEN, "");
     }
+
+    public static void setIMToken(Context context, String value) {
+        SharedPreferences sp = getPreference(context);
+        sp.edit().putString(IM_TOKEN, value).commit();
+    }
+
+
+    public static String getIMToken(Context context) {
+        SharedPreferences sp = getPreference(context);
+        return sp.getString(IM_TOKEN, "");
+    }
+
+    public static void setIMUserId(Context context, String value) {
+        SharedPreferences sp = getPreference(context);
+        sp.edit().putString(IM_USER_ID, value).commit();
+    }
+
+
+    public static String getIMIMUserId(Context context) {
+        SharedPreferences sp = getPreference(context);
+        return sp.getString(IM_USER_ID, "");
+    }
+
+
 
 
 }

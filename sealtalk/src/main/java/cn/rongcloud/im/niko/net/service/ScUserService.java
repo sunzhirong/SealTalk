@@ -10,7 +10,6 @@ import cn.rongcloud.im.niko.model.FriendInfo;
 import cn.rongcloud.im.niko.model.MyLikeBean;
 import cn.rongcloud.im.niko.model.VIPCheckBean;
 import cn.rongcloud.im.niko.model.VIPConfigBean;
-import cn.rongcloud.im.niko.model.sc.NetResponse;
 import cn.rongcloud.im.niko.model.Result;
 import cn.rongcloud.im.niko.model.sc.UserInfo;
 import cn.rongcloud.im.niko.net.ScUrl;
@@ -120,5 +119,10 @@ public interface ScUserService {
     @POST(ScUrl.LIKE_LIST)
     @Headers(NetConstant.JSON)
     LiveData<Result<List<MyLikeBean>>> getMyLiekList(@Body RequestBody body);
+
+
+    @POST(ScUrl.GET_OTHER_PROFILE)
+    @Headers(NetConstant.JSON)
+    LiveData<cn.rongcloud.im.model.Result<ProfileInfo>> getUserInfo(@Body RequestBody body);
 
 }

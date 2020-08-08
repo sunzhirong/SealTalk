@@ -33,6 +33,8 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.eventbus.EventBus;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 public class SettingPersonInfoActivity extends BaseActivity {
 
@@ -119,6 +121,21 @@ public class SettingPersonInfoActivity extends BaseActivity {
                             ProfileUtils.sProfileInfo.getHead().setUserIcon(resource.data);
                             mUserInfoViewModel.getProfileCache().saveUserCache(ProfileUtils.sProfileInfo);
                             refreshUI();
+                            RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+                                /**
+                                 * 获取设置用户信息. 通过返回的 userId 来封装生产用户信息.
+                                 * @param userId 用户 ID
+                                 */
+                                @Override
+                                public UserInfo getUserInfo(String userId) {
+                                    return new UserInfo(userId, ProfileUtils.sProfileInfo.getHead().getName(),
+                                            Uri.parse(GlideImageLoaderUtil.getScString(ProfileUtils.sProfileInfo.getHead().getUserIcon())));
+                                }
+
+                            }, true);
+
+//                            RongIM.setGroupUserInfoProvider();
                         }
                     });
 

@@ -12,7 +12,6 @@ import cn.rongcloud.im.R;
 import cn.rongcloud.im.common.IntentExtra;
 import cn.rongcloud.im.model.Resource;
 import cn.rongcloud.im.model.VersionInfo;
-import cn.rongcloud.im.ui.dialog.DownloadAppDialog;
 import cn.rongcloud.im.ui.view.SettingItemView;
 import cn.rongcloud.im.viewmodel.AppViewModel;
 
@@ -59,16 +58,6 @@ public class AboutSealTalkActivity extends TitleBaseActivity implements View.OnC
      */
     private void initViewModel() {
         AppViewModel appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
-        // 是否有新版本
-        appViewModel.getHasNewVersion().observe(this, new Observer<Resource<VersionInfo.AndroidVersion>>() {
-            @Override
-            public void onChanged(Resource<VersionInfo.AndroidVersion> resource) {
-                if (resource.data != null) {
-                    sealtalkVersionSiv.setClickable(true);
-                    sealtalkVersionSiv.setTagImageVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         // sdk 版本
         appViewModel.getSDKVersion().observe(this, new Observer<String>() {
@@ -117,7 +106,6 @@ public class AboutSealTalkActivity extends TitleBaseActivity implements View.OnC
                 toWeb(getString(R.string.seal_mine_about_rongcloud_web), "http://rongcloud.cn/");
                 break;
             case R.id.siv_sealtalk_version:
-                showDownloadDialog(url);
                 break;
             case R.id.siv_sdk_version:
                 // TODO 开启 debug 模式规则
@@ -142,14 +130,4 @@ public class AboutSealTalkActivity extends TitleBaseActivity implements View.OnC
         startActivity(intent);
     }
 
-    /**
-     * 提示下载
-     */
-    private void showDownloadDialog(String url) {
-        DownloadAppDialog dialog = new DownloadAppDialog();
-        Bundle bundle = new Bundle();
-        bundle.putString(IntentExtra.URL, url);
-        dialog.setArguments(bundle);
-        dialog.show(getSupportFragmentManager(), "download_dialog");
-    }
 }

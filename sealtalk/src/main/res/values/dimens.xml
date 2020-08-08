@@ -770,4 +770,7 @@
     <dimen name="WheelItemHeightSpace">16dp</dimen>
     <dimen name="WheelItemWidthSpace">32dp</dimen>
 
+<!--    扩展部分高度 和 个数-->
+    <dimen name="rc_extension_board_height">160dp</dimen>
+    <integer name="rc_extension_plugin_count_per_page">4</integer>
 </resources>

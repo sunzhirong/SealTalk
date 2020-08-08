@@ -61,6 +61,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void onInitView(Bundle savedInstanceState, Intent intent) {
+
         initLoginInfo();
         mLoginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         mLoginViewModel.getGetTokenResult().observe(this, new Observer<TokenBean>() {
@@ -123,35 +124,6 @@ public class MainFragment extends BaseFragment {
                 }
             }
         });
-
-//        mLoginViewModel.getProfileResult().observe(this,profileInfoResult -> {
-//            if (profileInfoResult.RsCode == 3){
-//                ProfileUtils.sProfileInfo = profileInfoResult.RsData;
-//                mTvIsLogin.setText("登陆成功");
-//            }
-//        });
-
-
-//        mLoginViewModel.getProfileResult().observe(this, new Observer<Resource<Result<ProfileInfo>>>() {
-//            @Override
-//            public void onChanged(Resource<Result<ProfileInfo>> resource) {
-//                if (resource.status == Status.SUCCESS) {
-//                    SLog.d("niko","SUCCESS");
-//                    mTvIsLogin.setText(JSON.toJSONString(resource.data));
-//                } else if (resource.status == Status.LOADING) {
-//                    SLog.d("niko","LOADING");
-//                } else {
-//                    SLog.d("niko","FINISH");
-//                }
-//            }
-//        });
-
-//        mLoginViewModel.getUpdateProfile().observe(this,profileInfoResult -> {
-//            if (profileInfoResult.RsCode == 3){
-//                mTvIsLogin.setText("更新");
-//            }
-//        });
-
     }
 
     private void initLoginInfo() {

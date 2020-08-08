@@ -49,7 +49,7 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<R>> {
                             if (body == null && !response.isSuccessful()) {
                                 Result result = new Result();
                                 int errorCode = ApiErrorCodeMap.getApiErrorCode(path, response.code());
-                                result.setCode(errorCode);
+                                result.setRsCode(errorCode);
                                 try {
                                     body = (R) result;
                                 } catch (Exception e) {
@@ -58,9 +58,9 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<R>> {
                             } else if (body instanceof Result) {
                                 Result result = (Result) body;
                                 // 当请求失败时，转义API错误码到全局错误码
-                                if (result.code != REQUEST_SUCCESS_CODE) {
-                                    int errorCode = ApiErrorCodeMap.getApiErrorCode(path, result.code);
-                                    result.setCode(errorCode);
+                                if (result.RsCode != REQUEST_SUCCESS_CODE) {
+                                    int errorCode = ApiErrorCodeMap.getApiErrorCode(path, result.RsCode);
+                                    result.setRsCode(errorCode);
                                 }
                             }
                             postValue(body);
@@ -72,7 +72,7 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<R>> {
                             if (throwable instanceof ConnectException) {
                                 R body = null;
                                 Result result = new Result();
-                                result.setCode(ErrorCode.NETWORK_ERROR.getCode());
+                                result.setRsCode(ErrorCode.NETWORK_ERROR.getCode());
                                 try {
                                     body = (R) result;
                                 } catch (Exception e) {

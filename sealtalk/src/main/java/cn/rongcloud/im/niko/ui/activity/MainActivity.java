@@ -6,14 +6,17 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import androidx.lifecycle.ViewModelProviders;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.niko.ChatFragment;
+import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.niko.event.CitySelectEvent;
 import cn.rongcloud.im.niko.event.ItemCommentEvent;
 import cn.rongcloud.im.niko.event.ShowMoreEvent;
 import cn.rongcloud.im.niko.ui.fragment.MainFragment;
 import cn.rongcloud.im.niko.ui.fragment.TwoFragment;
 import cn.rongcloud.im.niko.ui.item.ItemComment;
+import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
 import cn.rongcloud.im.niko.widget.ChatTipsPop;
 import cn.rongcloud.im.niko.widget.MainBottomTabGroupView;
 import cn.rongcloud.im.niko.widget.MainBottomTabItem;
@@ -126,6 +129,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        UserInfoViewModel userInfoViewModel = ViewModelProviders.of(this).get(UserInfoViewModel.class);
+        ProfileUtils.sProfileInfo = userInfoViewModel.getProfileCache().getUserCache();
+
         EventBus.getDefault().register(this);
         if (mFlOrderLayout.getForeground() != null) {
             mFlOrderLayout.getForeground().setAlpha(0);
