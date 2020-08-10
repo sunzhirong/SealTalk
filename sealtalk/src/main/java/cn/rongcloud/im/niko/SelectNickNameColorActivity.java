@@ -1,13 +1,5 @@
 package cn.rongcloud.im.niko;
 
-import cn.rongcloud.im.R;
-import cn.rongcloud.im.niko.event.NicknameColorSelectEvent;
-import cn.rongcloud.im.niko.model.VIPConfigBean;
-import cn.rongcloud.im.niko.ui.activity.BaseActivity;
-import cn.rongcloud.im.niko.ui.adapter.NicknameRvAdapter;
-import cn.rongcloud.im.niko.utils.ToastUtils;
-import cn.rongcloud.im.niko.viewmodel.VipViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.rongcloud.im.R;
+import cn.rongcloud.im.niko.event.NicknameColorSelectEvent;
+import cn.rongcloud.im.niko.model.VIPConfigBean;
+import cn.rongcloud.im.niko.ui.activity.BaseActivity;
+import cn.rongcloud.im.niko.ui.adapter.NicknameRvAdapter;
+import cn.rongcloud.im.niko.utils.ToastUtils;
+import cn.rongcloud.im.niko.viewmodel.VipViewModel;
 import io.rong.eventbus.EventBus;
 
 public class SelectNickNameColorActivity extends BaseActivity {

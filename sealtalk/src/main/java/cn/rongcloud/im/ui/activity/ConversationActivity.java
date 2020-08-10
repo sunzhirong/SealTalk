@@ -4,24 +4,25 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.gyf.immersionbar.OnKeyboardListener;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,13 +33,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.common.IntentExtra;
 import cn.rongcloud.im.common.ThreadManager;
@@ -50,6 +44,7 @@ import cn.rongcloud.im.model.ScreenCaptureData;
 import cn.rongcloud.im.model.ScreenCaptureResult;
 import cn.rongcloud.im.model.Status;
 import cn.rongcloud.im.model.TypingInfo;
+import cn.rongcloud.im.niko.event.AliasChangeSuccessEvent;
 import cn.rongcloud.im.niko.ui.activity.ChatSettingActivity;
 import cn.rongcloud.im.niko.ui.activity.GroupSettingActivity;
 import cn.rongcloud.im.sp.UserConfigCache;
@@ -781,6 +776,20 @@ public class ConversationActivity extends TitleBaseActivity {
         if (event.result && event.userId.equals(targetId)) {
             SLog.i(TAG, "DeleteFriend Success");
             finish();
+        }
+    }
+
+
+    /**
+     * 别名修改成功的事件
+     *
+     * @param event 修改结果事件
+     */
+
+    // TODO: 2020/8/10 这里回调正常，但是标题栏没有变，你自己看一下
+    public void onEventMainThread(AliasChangeSuccessEvent event) {
+        if (event != null && event.getAlias() != null) {
+            getNikoTitleBar().setTitle(event.getAlias());
         }
     }
 }

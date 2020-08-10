@@ -12,15 +12,14 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.common.IntentExtra;
 import cn.rongcloud.im.db.model.FriendDetailInfo;
@@ -35,8 +34,8 @@ import cn.rongcloud.im.ui.widget.SelectableRoundedImageView;
 import cn.rongcloud.im.utils.CheckPermissionUtils;
 import cn.rongcloud.im.utils.ImageLoaderUtils;
 import cn.rongcloud.im.utils.ToastUtils;
-import cn.rongcloud.im.viewmodel.PrivateChatSettingViewModel;
 import cn.rongcloud.im.utils.log.SLog;
+import cn.rongcloud.im.viewmodel.PrivateChatSettingViewModel;
 import io.rong.eventbus.EventBus;
 import io.rong.imkit.utilities.PromptPopupDialog;
 import io.rong.imlib.model.Conversation;

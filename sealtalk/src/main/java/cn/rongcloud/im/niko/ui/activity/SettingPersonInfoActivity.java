@@ -1,21 +1,22 @@
 package cn.rongcloud.im.niko.ui.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import cn.rongcloud.im.niko.ProfileUtils;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import butterknife.BindView;
+import butterknife.OnClick;
 import cn.rongcloud.im.R;
+import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.niko.db.model.ProfileInfo;
 import cn.rongcloud.im.niko.event.CitySelectEvent;
 import cn.rongcloud.im.niko.event.RefreshProfileEvent;
 import cn.rongcloud.im.niko.model.Resource;
-import cn.rongcloud.im.niko.model.Result;
 import cn.rongcloud.im.niko.model.Status;
-import cn.rongcloud.im.niko.sp.ProfileCache;
 import cn.rongcloud.im.niko.utils.BirthdayToAgeUtil;
 import cn.rongcloud.im.niko.utils.ToastUtils;
 import cn.rongcloud.im.niko.utils.glideutils.GlideImageLoaderUtil;
@@ -24,14 +25,6 @@ import cn.rongcloud.im.niko.widget.SettingItemView;
 import cn.rongcloud.im.niko.widget.dialog.SelectGenderBottomDialog;
 import cn.rongcloud.im.niko.widget.dialog.SelectPictureBottomDialog;
 import cn.rongcloud.im.niko.widget.wheel.date.DatePickerDialogFragment;
-
-import java.text.SimpleDateFormat;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import butterknife.BindView;
-import butterknife.OnClick;
 import io.rong.eventbus.EventBus;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;

@@ -20,17 +20,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.tencent.mm.opensdk.utils.Log;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.List;
-
 import cn.rongcloud.im.common.IntentExtra;
 import cn.rongcloud.im.im.IMManager;
 import cn.rongcloud.im.ui.activity.LoginActivity;
@@ -54,7 +55,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
+        Log.v("className", getClass().getSimpleName());
         /*
          * 修复部分 Android 8.0 手机在TargetSDK 大于 26 时，在透明主题时指定 Activity 方向时崩溃的问题
          */

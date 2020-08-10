@@ -3,10 +3,11 @@ package io.rong.recognizer.speechtotext;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import androidx.annotation.NonNull;
 
 /**
  * 解码 amr 格式音频文件的异步任务

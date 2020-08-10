@@ -70,7 +70,7 @@ public class ContactDetailActivity extends RongBaseNoActionbarActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.rc_ac_contact_detail);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        EventBus.getDefault().register(this);
+
         initView();
         initData();
     }

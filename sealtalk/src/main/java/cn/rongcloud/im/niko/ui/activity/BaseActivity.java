@@ -14,6 +14,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -21,12 +22,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import cn.rongcloud.im.R;
-import cn.rongcloud.im.niko.utils.DisplayUtils;
-import cn.rongcloud.im.niko.utils.ToastUtils;
-import cn.rongcloud.im.niko.widget.LoadingDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.gyf.immersionbar.OnKeyboardListener;
+import com.hjq.toast.ToastUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,6 +37,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.rongcloud.im.BuildConfig;
+import cn.rongcloud.im.R;
+import cn.rongcloud.im.SealApp;
+import cn.rongcloud.im.niko.utils.DisplayUtils;
+import cn.rongcloud.im.niko.widget.LoadingDialog;
+import io.rong.eventbus.EventBus;
 import io.rong.imkit.RongConfigurationManager;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -58,6 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         /*
          * 修复部分 Android 8.0 手机在TargetSDK 大于 26 时，在透明主题时指定 Activity 方向时崩溃的问题
          */
@@ -65,7 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             fixOrientation();
         }
         super.onCreate(savedInstanceState);
-
+        if (BuildConfig.DEBUG) Log.d("className", getClass().getSimpleName());
         if (isFullScreen()) {
             // 隐藏Activity顶部的状态栏
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -120,7 +125,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onKeyBoardChange(boolean isPopup) {
     }
 
-    protected void initView(){}
+    protected void initView() {
+    }
 
     /**
      * 子类设置布局Id
@@ -178,8 +184,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        }
         //移除所有
         handler.removeCallbacksAndMessages(null);
-        if(mBind!=null){
+        if (mBind != null) {
             mBind.unbind();
+        }
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
         }
     }
 
@@ -343,8 +353,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     public void showToast(String text) {
-        //toast
-        ToastUtils.showToast(text);
+        if (ToastUtils.getToast() == null) {
+            ToastUtils.init(SealApp.getApplication());
+        }
+        ToastUtils.show(text);
     }
 
     public void showToast(int resId) {
@@ -480,7 +492,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-
     public void readyGo(Class<?> clazz, Bundle bundle) {
         if (clazz != null) {
             Intent intent = new Intent(this, clazz);
@@ -516,7 +527,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     //点击除此之外view 关闭软键盘
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if(getExcludeTouchHideInputViews()!=null) {
+        if (getExcludeTouchHideInputViews() != null) {
             DisplayUtils.hideInputWhenTouchOtherView(this, ev, getExcludeTouchHideInputViews());
             hideInput();
         }
@@ -526,7 +537,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void hideInput() {
     }
 
-    protected List<View> getExcludeTouchHideInputViews(){
+    protected List<View> getExcludeTouchHideInputViews() {
         return null;
     }
+
 }

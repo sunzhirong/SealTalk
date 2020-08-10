@@ -2,49 +2,37 @@ package cn.rongcloud.im.niko.ui.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import androidx.lifecycle.ViewModelProviders;
+import butterknife.BindView;
+import butterknife.OnClick;
 import cn.rongcloud.im.R;
 import cn.rongcloud.im.niko.common.NetConstant;
-import cn.rongcloud.im.niko.db.model.ProfileHeadInfo;
 import cn.rongcloud.im.niko.event.AddFollowCompleteEvent;
+import cn.rongcloud.im.niko.event.AliasChangeSuccessEvent;
 import cn.rongcloud.im.niko.event.ContactsItemClickEvent;
-import cn.rongcloud.im.niko.event.FollowEvent;
 import cn.rongcloud.im.niko.model.FollowRequestInfo;
 import cn.rongcloud.im.niko.model.FriendInfo;
 import cn.rongcloud.im.niko.ui.adapter.MembersAdapter;
 import cn.rongcloud.im.niko.utils.glideutils.GlideImageLoaderUtil;
 import cn.rongcloud.im.niko.utils.log.SLog;
 import cn.rongcloud.im.niko.viewmodel.UserInfoViewModel;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
-import androidx.lifecycle.ViewModelProviders;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.rong.eventbus.EventBus;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.mention.SideBar;
 import io.rong.imkit.tools.CharacterParser;
-import io.rong.imkit.widget.AsyncImageView;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
@@ -120,7 +108,7 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
                     filterDataList.clear();
                     for (MembersAdapter.MemberInfo member : mAllMemberList) {
                         String name = member.userInfo.getName();
-                        if(!TextUtils.isEmpty(member.userInfo.getAlias())){
+                        if (!TextUtils.isEmpty(member.userInfo.getAlias())) {
                             name = member.userInfo.getAlias();
                         }
                         if (name != null) {
@@ -151,7 +139,7 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
                 mAllMemberList.clear();
                 List<FriendInfo> rsData = result.getRsData();
 
-                for (FriendInfo info : rsData){
+                for (FriendInfo info : rsData) {
                     RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
 
                         /**
@@ -174,7 +162,7 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
 
                     //汉字转换成拼音
                     String pinyin = CharacterParser.getInstance().getSelling(profileHeadInfo.getName());
-                    if(!TextUtils.isEmpty(profileHeadInfo.getAlias())){
+                    if (!TextUtils.isEmpty(profileHeadInfo.getAlias())) {
                         pinyin = CharacterParser.getInstance().getSelling(profileHeadInfo.getAlias());
                     }
                     if (pinyin != null) {
@@ -255,6 +243,7 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
         }
         refreshDot();
     }
+
     public void onEventMainThread(ContactsItemClickEvent event) {
         MembersAdapter.MemberInfo memberInfo = mAllMemberList.get(event.position);
         FriendInfo userInfo = memberInfo.userInfo;
@@ -297,5 +286,14 @@ public class ContactsActivity extends BaseActivity implements MembersAdapter.OnD
     }
 
 
-
+    /**
+     * 别名修改成功的事件
+     *
+     * @param event 修改结果事件
+     */
+    public void onEventMainThread(AliasChangeSuccessEvent event) {
+        if (event != null && event.getAlias() != null) {
+            initViewModel();
+        }
+    }
 }
