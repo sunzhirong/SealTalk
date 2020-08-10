@@ -60,80 +60,79 @@ public class ScUrl {
 
 
 
-
-  /*  // 接口
-// 获取IM_token
-    static NSString * const Get_IM_Token_Interface = @"/api/ScIM/GetImUserToken";
-// 获取用户信息
-    static NSString * const Get_IM_User_Interface = @"/api/ScUser/GetOtherProfiles";
-// 用户加入黑名单
-    static NSString * const Set_IM_AddUserBlock_Interface = @"/api/ScUser/BlocksAdd";
-// 用户移除黑名单
-    static NSString * const Set_IM_RemoveUserBlock_Interface = @"/api/ScUser/BlocksRemove";
-// 获取黑名单信息
-    static NSString * const Get_IM_UserBlock_Interface = @"/api/ScUser/BlocksLists";
-// 设置好友名称
-    static NSString * const Set_IM_FriendsAlias_Interface = @"/api/ScUser/FriendAlias";
-// 获取全部好友
-    static NSString * const Get_IM_Friends_Interface = @"/api/ScUser/FriendsList";
-// 获取全部好友请求
-    static NSString * const Get_IM_Friend_Requests_Interface = @"/api/ScUser/FollowersListDetail";
-// 添加关注好友请求
-    static NSString * const IM_Add_Following_Requests_Interface = @"/api/ScUser/FollowingsAdd";
-// 取消关注好友
-    static NSString * const IM_Remove_Following_Requests_Interface = @"/api/ScUser/FollowingsRemove";
-// 获取评论数据
-    static NSString * const GET_IM_Moment_Center_Interface = @"/api/ScMoment/CommentsCenter";
-// 发出评论
-    static NSString * const IM_Add_Moment_Center_Interface = @"/api/ScMoment/CmtAdd";
-// 获取我的点赞
-    static NSString * const GET_IM_My_Like_Interface = @"/api/ScMoment/MomentLikeList";
-// 聊天置顶
-    static NSString * const GET_IM_ChatIsTop_Interface = @"/api/ScUser/TopAFriendYes";
-// 聊天取消置顶
-    static NSString * const GET_IM_ChatIsNotTop_Interface = @"/api/ScUser/TopAFriendNo";
-// 群聊创建
-    static NSString * const IM_GroupChatCreate_Interface = @"/api/ScIM/GroupChatStart";
-// 管理员解散群
-    static NSString * const IM_GroupChatDismiss_Interface = @"/api/ScIM/GroupChatEnd";
-// 拉人入群
-    static NSString * const IM_GroupChatAddMember_Interface = @"/api/ScIM/GroupChatInvite";
-// 踢人出群
-    static NSString * const IM_GroupChatRemoveMember_Interface = @"/api/ScIM/GroupChatKick";
-// 获取群信息
-    static NSString * const IM_GroupChatGetInfo_Interface = @"​/api​/ScIM​/GroupChatInfo";
-// 设置群信息
-    static NSString * const IM_GroupChatSetInfo_Interface = @"/api/ScIM/GroupChatConfig";
-// 主动退出群
-    static NSString * const IM_GroupChatLeave_Interface = @"/api/ScIM/GroupChatLeave";
-
-
-
-
-
-// auth-获取Token
-    static NSString * const GetToken_Interface = @"/connect/token";
-// 验证码修改密码
-    static NSString * const ChangePWbyCode_Interface = @"/api/MemberApi/ChangePWbyCode";
-// 旧密码修改密码
-    static NSString * const ChangePWbyOldPW_Interface = @"/api/MemberApi/ChangePWbyOldPW";
-// 查询用户是否已经设置密码
-    static NSString * const HasSetPassword_Interface = @"/api/ScUser/HasSetPassword";
-// 登出
-    static NSString * const Logout_Interface = @"/api/ScUser/Logout";
-// media-上传
-    static NSString * const UploadMedia_Interface = @"/api/jjUpload/UUupload";
-// 获取登录短信
-    static NSString * const GetLoginSMS_Interface = @"/api/ScSMS/ping";
-// 验证登录短信
-    static NSString * const VerifyLoginSMS_Interface = @"/api/ScSMS/VerifyCode";
-// 获取用户信息
-    static NSString * const GetUserProfile_Interface = @"/api/ScUser/ProfileGet";
-// 更新用户信息
-    static NSString * const SetUserProfile_Interface = @"/api/ScUser/ProfileUpdate";
-// 获取用户VIP状态
-    static NSString * const GetUserVIPStatus_Interface = @"/api/ScUser/VIPCheck";
-// 获取用户VIP颜色列表
-    static NSString * const GetUserVIPColorList_Interface = @"/api/ScSocial/VIPCfgInfo";*/
+//// 接口
+//// 获取IM_token
+//    static NSString * const Get_IM_Token_Interface = @"/api/ScIM/GetImUserToken";
+//// 获取用户信息
+//    static NSString * const Get_IM_User_Interface = @"/api/ScUser/GetOtherProfile";
+//// 用户加入黑名单
+//    static NSString * const Set_IM_AddUserBlock_Interface = @"/api/ScUser/BlocksAdd";
+//// 用户移除黑名单
+//    static NSString * const Set_IM_RemoveUserBlock_Interface = @"/api/ScUser/BlocksRemove";
+//// 获取黑名单信息
+//    static NSString * const Get_IM_UserBlock_Interface = @"/api/ScUser/BlocksLists";
+//// 设置好友名称
+//    static NSString * const Set_IM_FriendsAlias_Interface = @"/api/ScUser/FriendAlias";
+//// 获取全部好友
+//    static NSString * const Get_IM_Friends_Interface = @"/api/ScUser/FriendsList";
+//// 获取全部好友请求
+//    static NSString * const Get_IM_Friend_Requests_Interface = @"/api/ScUser/FollowersListDetail";
+//// 添加关注好友请求
+//    static NSString * const IM_Add_Following_Requests_Interface = @"/api/ScUser/FollowingsAdd";
+//// 取消关注好友
+//    static NSString * const IM_Remove_Following_Requests_Interface = @"/api/ScUser/FollowingsRemove";
+//// 获取评论数据
+//    static NSString * const GET_IM_Moment_Center_Interface = @"/api/ScMoment/CommentsCenter";
+//// 发出评论
+//    static NSString * const IM_Add_Moment_Center_Interface = @"/api/ScMoment/CmtAdd";
+//// 获取我的点赞
+//    static NSString * const GET_IM_My_Like_Interface = @"/api/ScMoment/MomentLikeList";
+//// 聊天置顶
+//    static NSString * const GET_IM_ChatIsTop_Interface = @"/api/ScUser/TopAFriendYes";
+//// 聊天取消置顶
+//    static NSString * const GET_IM_ChatIsNotTop_Interface = @"/api/ScUser/TopAFriendNo";
+//// 群聊创建
+//    static NSString * const IM_GroupChatCreate_Interface = @"/api/ScIM/GroupChatStart";
+//// 管理员解散群
+//    static NSString * const IM_GroupChatDismiss_Interface = @"/api/ScIM/GroupChatEnd";
+//// 拉人入群
+//    static NSString * const IM_GroupChatAddMember_Interface = @"/api/ScIM/GroupChatInvite";
+//// 踢人出群
+//    static NSString * const IM_GroupChatRemoveMember_Interface = @"/api/ScIM/GroupChatKick";
+//// 获取群信息
+//    static NSString * const IM_GroupChatGetInfo_Interface = @"/api/ScIM/GroupChatInfo";
+//// 设置群信息
+//    static NSString * const IM_GroupChatSetInfo_Interface = @"/api/ScIM/GroupChatConfig";
+//// 主动退出群
+//    static NSString * const IM_GroupChatLeave_Interface = @"/api/ScIM/GroupChatLeave";
+//
+//
+//
+//
+//
+//// auth-获取Token
+//    static NSString * const GetToken_Interface = @"/connect/token";
+//// 验证码修改密码
+//    static NSString * const ChangePWbyCode_Interface = @"/api/MemberApi/ChangePWbyCode";
+//// 旧密码修改密码
+//    static NSString * const ChangePWbyOldPW_Interface = @"/api/MemberApi/ChangePWbyOldPW";
+//// 查询用户是否已经设置密码
+//    static NSString * const HasSetPassword_Interface = @"/api/ScUser/HasSetPassword";
+//// 登出
+//    static NSString * const Logout_Interface = @"/api/ScUser/Logout";
+//// media-上传
+//    static NSString * const UploadMedia_Interface = @"/api/jjUpload/UUupload";
+//// 获取登录短信
+//    static NSString * const GetLoginSMS_Interface = @"/api/ScSMS/ping";
+//// 验证登录短信
+//    static NSString * const VerifyLoginSMS_Interface = @"/api/ScSMS/VerifyCode";
+//// 获取用户信息
+//    static NSString * const GetUserProfile_Interface = @"/api/ScUser/ProfileGet";
+//// 更新用户信息
+//    static NSString * const SetUserProfile_Interface = @"/api/ScUser/ProfileUpdate";
+//// 获取用户VIP状态
+//    static NSString * const GetUserVIPStatus_Interface = @"/api/ScUser/VIPCheck";
+//// 获取用户VIP颜色列表
+//    static NSString * const GetUserVIPColorList_Interface = @"/api/ScSocial/VIPCfgInfo";
 
 }

@@ -12,6 +12,15 @@ public class TokenBean {
     private int expires_in;
     private String token_type;
     private String error;
+    private int UID;
+
+    public int getUID() {
+        return UID;
+    }
+
+    public void setUID(int UID) {
+        this.UID = UID;
+    }
 
     public String getError() {
         return error;

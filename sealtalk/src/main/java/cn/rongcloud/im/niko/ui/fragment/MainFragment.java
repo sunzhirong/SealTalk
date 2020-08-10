@@ -17,6 +17,7 @@ import androidx.lifecycle.LiveData;
 import cn.rongcloud.im.db.DbManager;
 import cn.rongcloud.im.niko.BaseFragment;
 import cn.rongcloud.im.R;
+import cn.rongcloud.im.niko.ProfileUtils;
 import cn.rongcloud.im.niko.common.NetConstant;
 import cn.rongcloud.im.niko.db.model.ProfileInfo;
 import cn.rongcloud.im.niko.model.Result;
@@ -116,6 +117,8 @@ public class MainFragment extends BaseFragment {
                     NetConstant.Authorization = "Bearer "+tokenBean.getAccess_token();
                     SPUtils.setUserToken(getContext(),tokenBean.getAccess_token());
                     SPUtils.setLogin(getContext(),true);
+                    ProfileUtils.sProfileInfo = new ProfileInfo();
+                    ProfileUtils.sProfileInfo.setId(tokenBean.getUID());
                     initLoginInfo();
                 } else {
                     showToast("失败");

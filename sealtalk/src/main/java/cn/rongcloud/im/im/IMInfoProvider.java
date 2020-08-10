@@ -82,6 +82,7 @@ public class IMInfoProvider {
             return null;
         }, true);
 
+
         // 获取群组信息
         RongIM.setGroupInfoProvider(id -> {
             updateGroupInfo(id);

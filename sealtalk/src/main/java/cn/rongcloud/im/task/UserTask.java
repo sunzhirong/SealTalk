@@ -149,9 +149,9 @@ public class UserTask {
      */
     public LiveData<Resource<UserInfo>> getUserInfo(final String userId) {
 
-        return new NetworkBoundResource<UserInfo, Result<UserInfo>>() {
+        return new NetworkBoundResource<UserInfo, cn.rongcloud.im.niko.model.Result<UserInfo>>() {
             @Override
-            protected void saveCallResult(@NonNull Result<UserInfo> item) {
+            protected void saveCallResult(@NonNull cn.rongcloud.im.niko.model.Result<UserInfo> item) {
                 if (item.getRsData() == null) return;
                 UserInfo userInfo = item.getRsData();
 
@@ -215,27 +215,27 @@ public class UserTask {
 
             @NonNull
             @Override
-            protected LiveData<Result<UserInfo>> createCall() {
+            protected LiveData<cn.rongcloud.im.niko.model.Result<UserInfo>> createCall() {
 
 
 
-                return new NetworkOnlyLiveData<Result<UserInfo>, Result<ProfileInfo>>() {
+                return new NetworkOnlyLiveData<cn.rongcloud.im.niko.model.Result<UserInfo>, cn.rongcloud.im.niko.model.Result<ProfileInfo>>() {
                     @NonNull
                     @Override
-                    protected LiveData<Result<ProfileInfo>> createCall() {
+                    protected LiveData<cn.rongcloud.im.niko.model.Result<ProfileInfo>> createCall() {
                         HashMap<String, Object> paramsMap = new HashMap<>();
                         paramsMap.put("Data", userId);
                         RequestBody requestBody = RetrofitUtil.createJsonRequest(paramsMap);
-                        LiveData<Result<ProfileInfo>> userInfo = scUserService.getUserInfo(requestBody);
+                        LiveData<cn.rongcloud.im.niko.model.Result<ProfileInfo>> userInfo = scUserService.getUserInfo(requestBody);
                         return userInfo;
                     }
                     @Override
-                    protected Result<UserInfo> transformRequestType(Result<ProfileInfo> info){
+                    protected cn.rongcloud.im.niko.model.Result<UserInfo> transformRequestType(cn.rongcloud.im.niko.model.Result<ProfileInfo> info){
                         ProfileInfo rsData = info.getRsData();
 
                         UserInfo userInfo = new UserInfo();
 
-                        Result<UserInfo> userInfoResult = new Result<UserInfo>();
+                        cn.rongcloud.im.niko.model.Result<UserInfo> userInfoResult = new cn.rongcloud.im.niko.model.Result<UserInfo>();
                         userInfoResult.RsCode = info.RsCode;
 
                         userInfo.setId(String.valueOf(rsData.getHead().getUID()));

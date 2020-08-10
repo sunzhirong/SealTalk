@@ -123,6 +123,6 @@ public interface ScUserService {
 
     @POST(ScUrl.GET_OTHER_PROFILE)
     @Headers(NetConstant.JSON)
-    LiveData<cn.rongcloud.im.model.Result<ProfileInfo>> getUserInfo(@Body RequestBody body);
+    LiveData<Result<ProfileInfo>> getUserInfo(@Body RequestBody body);
 
 }

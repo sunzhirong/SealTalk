@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.rongcloud.im.R;
+import cn.rongcloud.im.db.DbManager;
+import cn.rongcloud.im.im.IMManager;
 import cn.rongcloud.im.niko.BaseFragment;
 import cn.rongcloud.im.niko.common.LogTag;
 import cn.rongcloud.im.niko.model.Status;
@@ -43,6 +46,7 @@ public class TwoFragment extends BaseFragment {
 //    {"userId":"niko3","token":"4qzAmqgDGV1WHjEyUGfZJ59ivYEkLj0ZPFuR4TwKlck=@u7r5.cn.rongnav.com;u7r5.cn.rongcfg.com"}
     private String mToken ;
     private String mUserId;
+    private UserInfoViewModel mUserInfoViewModel;
 
     @Override
     protected int getLayoutResId() {
@@ -81,9 +85,15 @@ public class TwoFragment extends BaseFragment {
                 });
             }
         });
+
+
+        mUserInfoViewModel = ViewModelProviders.of(this).get(UserInfoViewModel.class);
+        mUserInfoViewModel.getUserInfo().observe(this,result->{
+            Log.e("niko", JSONObject.toJSONString(result));
+        });
     }
 
-    @OnClick({R.id.btn_get_token, R.id.btn_init_token,R.id.btn_create_db, R.id.btn_insert, R.id.btn_search})
+    @OnClick({R.id.btn_get_token, R.id.btn_init_token,R.id.btn_create_db, R.id.btn_user})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_get_token:
@@ -91,6 +101,10 @@ public class TwoFragment extends BaseFragment {
                 break;
             case R.id.btn_init_token:
                 connextIM();
+                break;
+            case R.id.btn_user:
+                mUserInfoViewModel.requestUserInfo(IMManager.getInstance().getCurrentId());
+
                 break;
         }
     }
@@ -113,6 +127,7 @@ public class TwoFragment extends BaseFragment {
 //                DbManager.getInstance(context).openDb(s);
                 SLog.e(LogTag.IM, "connect success - code:" + s);
                 ToastUtils.showToast("连接成功");
+                DbManager.getInstance(getContext()).openDb(s);
             }
 
             public void onError(RongIMClient.ConnectionErrorCode errorCode) {

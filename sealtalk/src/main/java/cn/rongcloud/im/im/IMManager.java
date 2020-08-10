@@ -1257,6 +1257,7 @@ public class IMManager {
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
                 result.postValue(Resource.error(ErrorCode.IM_ERROR.getCode(), null));
+                result.postValue(Resource.error(ErrorCode.IM_ERROR.getCode(), null));
             }
         });
         return result;

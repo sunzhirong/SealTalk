@@ -28,6 +28,4 @@ public interface  TokenService {
     @POST(ScUrl.CHANGE_PW_BY_OLD_PW)
     @Headers(NetConstant.JSON)
     LiveData<Result<Boolean>> changePwByOldPw(@Body RequestBody body);
-
-
 }
