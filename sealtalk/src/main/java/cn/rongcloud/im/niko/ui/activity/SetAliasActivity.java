@@ -28,6 +28,7 @@ import cn.rongcloud.im.niko.widget.TitleBar;
 import cn.rongcloud.im.utils.AsyncUtils;
 import cn.rongcloud.im.utils.CharacterParser;
 import io.rong.eventbus.EventBus;
+import io.rong.imkit.userInfoCache.RongUserInfoManager;
 
 public class SetAliasActivity extends BaseActivity {
     @BindView(R.id.title_bar)
@@ -83,7 +84,6 @@ public class SetAliasActivity extends BaseActivity {
                         if (userDao != null) {
                             String aliasSpelling = CharacterParser.getInstance().getSpelling(displayName);
                             userDao.updateAlias(mTargetId, displayName, aliasSpelling);
-
                             UserInfo userInfo = userDao.getUserByIdSync(mTargetId);
                             if (userInfo != null) {
                                 // 更新 IMKit 显示缓存
@@ -104,6 +104,13 @@ public class SetAliasActivity extends BaseActivity {
                                         }
                                     }
                                 }
+                            } else {
+                                //无法在数据库中找到该用户对应的表数据,换一种方式获取
+                                // TODO: 2020/8/10 不太懂为什么这样就能获取到 ,并且下一次getUserByIdSync也能获取到了
+                                io.rong.imlib.model.UserInfo userInfo1 = RongUserInfoManager.getInstance().getUserInfo(mTargetId);
+                                if (userInfo1 != null) {
+                                    IMManager.getInstance().updateUserInfoCache(mTargetId, displayName, userInfo1.getPortraitUri());
+                                }
                             }
                         }
                     }
@@ -117,6 +124,7 @@ public class SetAliasActivity extends BaseActivity {
                         EventBus.getDefault().post(new AliasChangeSuccessEvent(alias));
                         finish();
                     } else {
+
                         ToastUtils.showToast("设置失败");
                     }
                 }

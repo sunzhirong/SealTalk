@@ -1,32 +1,11 @@
 package cn.rongcloud.im.niko.ui.fragment;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import cn.rongcloud.im.db.model.GroupNoticeInfo;
-import cn.rongcloud.im.model.Resource;
-import cn.rongcloud.im.model.Status;
-import cn.rongcloud.im.niko.BaseFragment;
-import cn.rongcloud.im.R;
-import cn.rongcloud.im.niko.ui.adapter.CommentRvAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
 import cn.rongcloud.im.niko.ui.adapter.ConversationListAdapterNikoEx;
 import io.rong.imkit.fragment.ConversationListFragment;
-import io.rong.imkit.widget.adapter.ConversationListAdapter;
 import io.rong.imlib.model.Conversation;
 
 
@@ -52,6 +31,10 @@ public class MyChatFragment extends ConversationListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setConversationlist();
+    }
+
+    private void setConversationlist() {
         Uri uri = Uri.parse("rong://" + getContext().getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversationlist")
                 .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")
@@ -63,12 +46,13 @@ public class MyChatFragment extends ConversationListFragment {
         setUri(uri);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setConversationlist();
+    }
 
-
-
-
-
-//    @Override
+    //    @Override
 //    public ConversationListAdapter onResolveAdapter(Context context) {
 //
 //        if (conversationListAdapterEx == null) {
